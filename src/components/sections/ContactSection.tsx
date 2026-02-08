@@ -40,7 +40,7 @@ export default function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="py-32 relative"
+      className="py-20 relative"
     >
       <div className="section-container">
         <div className="contact-content max-w-2xl mx-auto text-center">

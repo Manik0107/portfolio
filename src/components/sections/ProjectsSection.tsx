@@ -43,7 +43,7 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="py-32 relative"
+      className="py-20 relative"
     >
       <div className="section-container">
         <div className="section-title text-center mb-16">

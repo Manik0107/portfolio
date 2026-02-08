@@ -33,7 +33,7 @@ export default function ResumeSection() {
     <section
       ref={sectionRef}
       id="resume"
-      className="py-32 relative"
+      className="py-20 relative"
     >
       <div className="section-container">
         <div className="resume-content max-w-4xl mx-auto">
