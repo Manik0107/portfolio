@@ -1,0 +1,86 @@
+import { Suspense, lazy } from 'react';
+import { ArrowDown, FileText, Github } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const Hero3D = lazy(() => import('@/components/Hero3D'));
+
+interface HeroSectionProps {
+  onViewProjects: () => void;
+}
+
+export default function HeroSection({ onViewProjects }: HeroSectionProps) {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* 3D Background */}
+      <Suspense fallback={<div className="absolute inset-0 bg-background" />}>
+        <Hero3D />
+      </Suspense>
+
+      {/* Content */}
+      <div className="section-container relative z-10 text-center">
+        <div className="space-y-6 animate-fade-in-up">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 backdrop-blur-sm">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="text-sm text-muted-foreground">Building Intelligent Systems</span>
+          </div>
+
+          {/* Name */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <span className="text-gradient-primary">AI Developer</span>
+          </h1>
+
+          {/* Tagline */}
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Engineering production-grade AI systems, agentic workflows, 
+            and intelligent automation that solves real problems.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            <Button
+              size="lg"
+              onClick={onViewProjects}
+              className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg glow-primary"
+            >
+              View Projects
+              <ArrowDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-secondary px-8 py-6 text-lg"
+            >
+              <a href="#resume">
+                <FileText className="mr-2 h-5 w-5" />
+                Resume
+              </a>
+            </Button>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center justify-center gap-6 pt-8">
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="GitHub"
+            >
+              <Github className="h-6 w-6" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
+        <div className="flex flex-col items-center gap-2 text-muted-foreground">
+          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <ArrowDown className="h-4 w-4" />
+        </div>
+      </div>
+    </section>
+  );
+}

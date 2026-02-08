@@ -1,12 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useRef } from 'react';
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/sections/HeroSection';
+import AboutSection from '@/components/sections/AboutSection';
+import ProjectsSection from '@/components/sections/ProjectsSection';
+import SkillsSection from '@/components/sections/SkillsSection';
+import ResumeSection from '@/components/sections/ResumeSection';
+import ContactSection from '@/components/sections/ContactSection';
 
 const Index = () => {
+  const projectsRef = useRef<HTMLDivElement>(null);
+
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background neural-grid">
+      <Navbar />
+      
+      <main>
+        <HeroSection onViewProjects={scrollToProjects} />
+        <AboutSection />
+        <div ref={projectsRef}>
+          <ProjectsSection />
+        </div>
+        <SkillsSection />
+        <ResumeSection />
+        <ContactSection />
+      </main>
     </div>
   );
 };
