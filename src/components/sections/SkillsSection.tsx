@@ -48,7 +48,7 @@ export default function SkillsSection() {
     <section
       ref={sectionRef}
       id="skills"
-      className="py-32 relative"
+      className="py-20 relative"
     >
       <div className="section-container">
         <div className="text-center mb-16">
