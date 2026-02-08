@@ -62,7 +62,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
           {/* Social Links */}
           <div className="flex items-center justify-center gap-6 pt-8">
             <a
-              href="https://github.com"
+              href="https://github.com/Manik0107"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -75,7 +75,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-float">
         <div className="flex flex-col items-center gap-2 text-muted-foreground">
           <span className="text-xs uppercase tracking-widest">Scroll</span>
           <ArrowDown className="h-4 w-4" />

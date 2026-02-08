@@ -63,17 +63,31 @@ export default function AboutSection() {
       className="py-32 relative"
     >
       <div className="section-container">
-        <div ref={contentRef} className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            <span className="text-gradient-primary">About</span>
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            I architect and build AI systems that work in the real world. 
-            From prototype to production, I focus on creating intelligent solutions 
-            that are reliable, scalable, and genuinely useful. My work spans 
-            autonomous agents, custom LLM applications, and end-to-end ML pipelines—always 
-            with a production mindset.
-          </p>
+        <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-12 mb-16">
+          {/* Profile Picture Placeholder */}
+          <div className="profile-picture flex-shrink-0">
+            <div className="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-primary/30 bg-secondary/50 flex items-center justify-center overflow-hidden group relative">
+              {/* Replace this with your actual image */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20" />
+              <span className="text-muted-foreground text-sm z-10">Your Photo</span>
+              {/* When you have an image, use: */}
+              {/* <img src="/your-photo.jpg" alt="Profile" className="w-full h-full object-cover" /> */}
+            </div>
+          </div>
+
+          {/* About Text */}
+          <div className="text-center lg:text-left flex-1">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <span className="text-gradient-primary">About</span>
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              I architect and build AI systems that work in the real world. 
+              From prototype to production, I focus on creating intelligent solutions 
+              that are reliable, scalable, and genuinely useful. My work spans 
+              autonomous agents, custom LLM applications, and end-to-end ML pipelines—always 
+              with a production mindset.
+            </p>
+          </div>
         </div>
 
         {/* Highlights Grid */}
