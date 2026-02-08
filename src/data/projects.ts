@@ -30,7 +30,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Traditional market research is slow, expensive, and often outdated by the time it reaches decision-makers. Manual monitoring of competitors, trends, and market shifts cannot scale.',
     architecture: 'The system uses a supervisor agent pattern with specialized worker agents for data collection, analysis, and synthesis. A central knowledge graph stores relationships between entities, while vector embeddings enable semantic retrieval.',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/Manik0107/Agentic_Market_Intelligence',
   },
   {
     id: '2',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Developers spend countless hours writing and maintaining documentation. Code changes frequently outpace documentation updates, leading to outdated and unreliable docs.',
     architecture: 'Uses Tree-sitter for robust multi-language parsing, builds an intermediate representation of the codebase, then leverages LLMs to generate human-readable documentation with context awareness.',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/Manik0107/Git2Doc',
   },
   {
     id: '3',
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Current voice assistants are limited to simple commands and predefined actions. Complex task automation still requires manual scripting or GUI interaction.',
     architecture: 'Pipeline architecture with streaming audio processing, real-time transcription, LLM-based intent parsing, and a modular action executor that interfaces with external services via adapters.',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/Manik0107/VATA',
   },
   {
     id: '4',
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Traditional note-taking creates isolated information silos. Valuable connections between ideas remain hidden, and retrieval depends on remembering exact keywords.',
     architecture: 'Notes are embedded into a vector space using OpenAI embeddings stored in pgvector. A background process continuously analyzes for potential links, while the LLM layer enables conversational retrieval.',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/Manik0107/.ink',
   },
   {
     id: '5',
@@ -102,6 +102,6 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Single-agent LLM systems struggle with complex, multi-faceted tasks. Manual orchestration of multiple agents is error-prone and hard to scale.',
     architecture: 'Tree-structured agent hierarchy where parent agents decompose tasks and delegate to children. Uses a message-passing protocol with Redis for coordination and Celery for distributed execution.',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/Manik0107/HierAI',
   },
 ];
