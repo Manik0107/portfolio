@@ -17,28 +17,46 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.section-title', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
+      const q = gsap.utils.selector(sectionRef);
+      const titleEl = q('.section-title')[0];
+      const gridEl = q('.projects-grid')[0] as HTMLElement | undefined;
+      const cardEls = q('.project-card');
 
-      gsap.from('.project-card', {
-        scrollTrigger: {
-          trigger: '.projects-grid',
-          start: 'top 80%',
-        },
-        y: 60,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
+      if (titleEl) {
+        gsap.from(titleEl, {
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          immediateRender: false,
+          clearProps: 'transform,opacity',
+        });
+      }
+
+      if (gridEl && cardEls.length) {
+        gsap.from(cardEls, {
+          scrollTrigger: {
+            trigger: gridEl,
+            start: 'top 85%',
+            once: true,
+          },
+          y: 60,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: 'power3.out',
+          immediateRender: false,
+          clearProps: 'transform,opacity',
+        });
+      }
+
+      // Helps when arriving via hash links (e.g. /#projects)
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }, sectionRef);
 
     return () => ctx.revert();
@@ -48,7 +66,7 @@ export default function ProjectsSection() {
     <section
       ref={sectionRef}
       id="projects"
-      className="py-12 relative"
+      className="pt-6 pb-12 relative"
     >
       <div className="section-container">
         <div className="section-title text-center mb-12">

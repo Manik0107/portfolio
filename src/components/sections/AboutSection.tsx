@@ -60,7 +60,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about"
-      className="py-12 pb-8 relative"
+      className="py-12 pb-4 relative"
     >
       <div className="section-container">
         <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-12 mb-16">
