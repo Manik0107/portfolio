@@ -20,19 +20,19 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
       <div className="section-container relative z-10 text-center">
         <div className="space-y-6 animate-fade-in-up">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 backdrop-blur-sm animate-bounce-subtle">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
             <span className="text-sm text-muted-foreground">Building Intelligent Systems</span>
           </div>
 
           {/* Name */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span className="text-gradient-primary">AI Developer</span>
+            <span className="text-shimmer">AI Developer</span>
           </h1>
 
           {/* Tagline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Engineering production-grade AI systems, agentic workflows, 
+            Engineering production-grade AI systems, agentic workflows,
             and intelligent automation that solves real problems.
           </p>
 
@@ -50,7 +50,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
               size="lg"
               variant="outline"
               asChild
-              className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-secondary px-8 py-6 text-lg"
+              className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-foreground hover:border-primary/50 px-8 py-6 text-lg transition-all"
             >
               <a href="#resume">
                 <FileText className="mr-2 h-5 w-5" />
@@ -71,14 +71,6 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
               <Github className="h-6 w-6" />
             </a>
           </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-float">
-        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <ArrowDown className="h-4 w-4" />
         </div>
       </div>
     </section>

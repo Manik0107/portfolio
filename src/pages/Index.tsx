@@ -1,5 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import CodingBackground from '@/components/CodingBackground';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
@@ -8,6 +10,14 @@ import ResumeSection from '@/components/sections/ResumeSection';
 import ContactSection from '@/components/sections/ContactSection';
 
 const Index = () => {
+  useEffect(() => {
+    // Force scroll to top on mount to show Hero section
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
   const projectsRef = useRef<HTMLDivElement>(null);
 
   const scrollToProjects = () => {
@@ -16,8 +26,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background neural-grid">
+      {/* Coding animation background */}
+      <CodingBackground />
+
+      {/* Animated gradient background */}
+      <AnimatedBackground />
+
       <Navbar />
-      
+
       <main>
         <HeroSection onViewProjects={scrollToProjects} />
         <AboutSection />

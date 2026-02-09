@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +7,7 @@
 
 /* AI Developer Portfolio Design System
    Color Palette: Classic Blue, Turquoise, Gold, White on Dark
-   Typography: JetBrains Mono
+   Typography: Inter (UI), JetBrains Mono (Code)
 */
 
 @layer base {
@@ -68,7 +69,7 @@
     --gradient-gold: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(35 93% 50%) 100%);
     --gradient-dark: linear-gradient(180deg, hsl(222 47% 6%) 0%, hsl(222 47% 3%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(222 47% 10%) 0%, hsl(222 47% 6%) 100%);
-    
+
     /* Shadows */
     --shadow-glow-primary: 0 0 40px -10px hsl(217 91% 60% / 0.4);
     --shadow-glow-accent: 0 0 40px -10px hsl(174 72% 56% / 0.4);
@@ -86,7 +87,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-mono antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'JetBrains Mono', monospace;
     font-feature-settings: "liga" 1, "calt" 1;
   }
 
@@ -96,10 +98,11 @@
 }
 
 @layer components {
+
   /* Glass morphism card */
   .glass-card {
     @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
-    box-shadow: 
+    box-shadow:
       0 4px 30px hsl(0 0% 0% / 0.3),
       inset 0 1px 0 hsl(0 0% 100% / 0.05);
   }
@@ -135,7 +138,7 @@
 
   .hover-lift:hover {
     @apply -translate-y-1;
-    box-shadow: 
+    box-shadow:
       0 20px 40px -15px hsl(0 0% 0% / 0.5),
       var(--shadow-glow-primary);
   }
@@ -166,7 +169,7 @@
 
   /* Neural network grid pattern */
   .neural-grid {
-    background-image: 
+    background-image:
       linear-gradient(hsl(222 30% 15% / 0.5) 1px, transparent 1px),
       linear-gradient(90deg, hsl(222 30% 15% / 0.5) 1px, transparent 1px);
     background-size: 50px 50px;
@@ -174,6 +177,7 @@
 }
 
 @layer utilities {
+
   /* Fade in animation */
   .animate-fade-in {
     animation: fade-in 0.6s ease-out forwards;
@@ -196,12 +200,47 @@
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
+
+  /* Shimmer effect */
+  .animate-shimmer {
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  /* Continuous rotation */
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+
+  /* Gradient shift animation */
+  .animate-gradient-shift {
+    animation: gradient-shift 8s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+
+  /* Bounce animation */
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s ease-in-out infinite;
+  }
+
+  /* Text shimmer */
+  .text-shimmer {
+    background: linear-gradient(90deg,
+        hsl(217 91% 60%) 0%,
+        hsl(174 72% 56%) 50%,
+        hsl(217 91% 60%) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: text-shimmer 3s linear infinite;
+  }
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -212,6 +251,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -223,6 +263,7 @@
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -230,20 +271,76 @@
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gradient-shift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes text-shimmer {
+  to {
+    background-position: 200% center;
   }
 }
 
