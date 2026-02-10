@@ -10,7 +10,6 @@ export default function CodingBackground() {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Set canvas size
         const setCanvasSize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -18,78 +17,58 @@ export default function CodingBackground() {
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
 
-        // Terminal commands and code snippets to display
-        const codeSnippets = [
-            '$ npm install @ai/agent',
-            '$ git commit -m "feat: AI"',
-            'const agent = new AI()',
-            'async function process()',
-            'import { Pipeline }',
-            '=> data.transform()',
-            'class NeuralNetwork {',
-            'def train_model():',
-            'model.fit(X_train)',
-            '$ python train.py --gpu',
-            'npm run build:prod',
-            'docker run -d agent',
-            'kubectl apply -f ai.yaml',
-            'terraform apply --auto',
-            '{ success: true }',
-            'Training... 87%',
-            'Processing batch...',
-            'Inference complete',
-            '[INFO] Model loaded',
-            '>>> agent.execute()',
+        // Single glyphs + short code tokens for Matrix-rain aesthetic
+        const chars = [
+            '{', '}', '(', ')', ';', ':', '<', '>', '/', '=',
+            'fn', '=>', '{}', 'AI', '0x', 'if', 'db', '++',
+            '01', '10', '&&', '||', '!=', '<<', '>>', '//',
+            'λ', 'Σ', 'Δ', 'π', '∞', '→', '⊕', '∴',
+            '0', '1', 'x', 'y', 'z', 'n', 'i', 'k',
         ];
 
-        // Column configuration - more visible
+        // Column spacing ~50px to align with neural-grid
+        const colWidth = 50;
         const fontSize = 14;
-        const columns = Math.floor(canvas.width / (fontSize * 1.5));
-        const drops: number[] = Array(columns).fill(0).map(() => Math.random() * -100);
+        const columns = Math.floor(canvas.width / colWidth);
+        const drops: number[] = Array(columns).fill(0).map(() => Math.random() * -50);
 
-        // Animation
         const draw = () => {
-            // Semi-transparent fade
-            ctx.fillStyle = 'rgba(10, 13, 18, 0.03)';
+            // Longer trail fade for blending with grid
+            ctx.fillStyle = 'rgba(10, 13, 18, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Set text style
             ctx.font = `${fontSize}px 'JetBrains Mono', 'Courier New', monospace`;
 
-            // Draw code snippets
             for (let i = 0; i < drops.length; i++) {
-                const text = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-                const x = i * fontSize * 1.5;
-                const y = drops[i] * fontSize;
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const xPos = i * colWidth;
+                const yPos = drops[i] * fontSize;
 
-                // Brighter colors - alternating blue and turquoise
+                // Alternating blue and turquoise
                 const useBlue = i % 2 === 0;
-                if (useBlue) {
-                    ctx.fillStyle = 'rgba(59, 130, 246, 0.25)'; // Bright blue
-                } else {
-                    ctx.fillStyle = 'rgba(45, 212, 191, 0.25)'; // Bright turquoise  
-                }
+                ctx.fillStyle = useBlue
+                    ? 'rgba(59, 130, 246, 0.35)'
+                    : 'rgba(45, 212, 191, 0.35)';
 
-                ctx.fillText(text, x, y);
-
-                // Add glow effect to some characters
+                // Occasional glow
                 if (Math.random() > 0.95) {
                     ctx.shadowBlur = 10;
-                    ctx.shadowColor = useBlue ? 'rgba(59, 130, 246, 0.5)' : 'rgba(45, 212, 191, 0.5)';
+                    ctx.shadowColor = useBlue ? 'rgba(59, 130, 246, 0.6)' : 'rgba(45, 212, 191, 0.6)';
                 } else {
                     ctx.shadowBlur = 0;
                 }
 
-                // Randomly reset drop to top or continue falling
-                if (y > canvas.height && Math.random() > 0.975) {
+                ctx.fillText(text, xPos, yPos);
+
+                if (yPos > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
                 drops[i]++;
             }
         };
 
-        // Run animation
-        const interval = setInterval(draw, 60);
+        // Slower interval (80ms) for calmer ambient feel
+        const interval = setInterval(draw, 80);
 
         return () => {
             clearInterval(interval);
@@ -102,7 +81,8 @@ export default function CodingBackground() {
             ref={canvasRef}
             className="fixed inset-0 -z-30 pointer-events-none"
             style={{
-                opacity: 0.7, // Much more visible
+                opacity: 0.4,
+                mixBlendMode: 'screen',
             }}
         />
     );

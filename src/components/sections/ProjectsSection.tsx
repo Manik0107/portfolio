@@ -12,7 +12,7 @@ export default function ProjectsSection() {
     <section
       ref={ref}
       id="projects"
-      className="py-20 relative overflow-hidden min-h-screen flex flex-col justify-center"
+      className="py-20 relative overflow-x-hidden min-h-screen flex flex-col justify-center"
     >
       <div className="section-container relative z-10">
         {/* Section Header */}
