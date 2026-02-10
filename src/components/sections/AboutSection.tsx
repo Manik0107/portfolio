@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -22,7 +22,49 @@ const highlights = [
     title: 'Production Scale',
     description: 'Deployment-ready systems with monitoring and optimization',
   },
+
 ];
+
+const TypingEffect = ({ text }: { text: string[] }) => {
+  const [currentText, setCurrentText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [textIndex, setTextIndex] = useState(0);
+
+  useEffect(() => {
+    const typeSpeed = isDeleting ? 50 : 100;
+    const pauseTime = 2000;
+
+    const type = () => {
+      const fullText = text[textIndex % text.length];
+
+      if (isDeleting) {
+        setCurrentText(fullText.substring(0, currentIndex - 1));
+        setCurrentIndex(prev => prev - 1);
+      } else {
+        setCurrentText(fullText.substring(0, currentIndex + 1));
+        setCurrentIndex(prev => prev + 1);
+      }
+
+      if (!isDeleting && currentIndex === fullText.length) {
+        setTimeout(() => setIsDeleting(true), pauseTime);
+      } else if (isDeleting && currentIndex === 0) {
+        setIsDeleting(false);
+        setTextIndex(prev => prev + 1);
+      }
+    };
+
+    const timer = setTimeout(type, typeSpeed);
+    return () => clearTimeout(timer);
+  }, [currentIndex, isDeleting, text, textIndex]);
+
+  return (
+    <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
+      <span className="text-gradient-primary">{currentText}</span>
+      <span className="animate-pulse text-primary">|</span>
+    </h2>
+  );
+};
 
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -113,9 +155,15 @@ export default function AboutSection() {
 
           {/* About Text */}
           <div className="text-center lg:text-left flex-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              <span className="text-shimmer">About</span>
-            </h2>
+            <div className="mb-6 h-[40px] flex items-center justify-center">
+              <TypingEffect
+                text={[
+                  "Hi, I'm Manik Manavenddra M",
+                  "AI Engineer",
+                  "Building Production-Ready AI Systems"
+                ]}
+              />
+            </div>
             <p className="text-lg text-muted-foreground leading-relaxed">
               I architect and build AI systems that work in the real world.
               From prototype to production, I focus on creating intelligent solutions

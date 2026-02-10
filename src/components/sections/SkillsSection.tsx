@@ -7,15 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 const skillCategories = [
   {
     title: 'Languages',
-    skills: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'Rust'],
+    skills: ['Python', 'TypeScript', 'FastApi', 'SQL', 'Rust', "GoLang"],
   },
   {
     title: 'AI / ML',
     skills: ['LangChain', 'LangGraph', 'OpenAI', 'Hugging Face', 'PyTorch', 'RAG'],
-  },
-  {
-    title: 'Frameworks',
-    skills: ['React', 'Next.js', 'FastAPI', 'Node.js', 'Express'],
   },
   {
     title: 'Infrastructure',
@@ -27,18 +23,9 @@ export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // GSAP context removed to fix visibility issue
     const ctx = gsap.context(() => {
-      gsap.from('.skill-category', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
+      // Intentionally empty
     }, sectionRef);
 
     return () => ctx.revert();
@@ -60,13 +47,12 @@ export default function SkillsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skillCategories.map((category) => (
             <div
               key={category.title}
-              className="skill-category glass-card p-6"
-            >
-              <h3 className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">
+              className="skill-category glass-card p-6 border border-[rgba(255,215,0,0.4)] shadow-none hover:shadow-[0_0_25px_rgba(255,215,0,0.45)] transition-all duration-300">
+              <h3 className="text-2xl font-bold text-accent mb-6">
                 {category.title}
               </h3>
               <div className="flex flex-wrap gap-2">

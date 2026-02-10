@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { ArrowDown, FileText, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const Hero3D = lazy(() => import('@/components/Hero3D'));
+const MatrixRain = lazy(() => import('@/components/MatrixRain'));
 
 interface HeroSectionProps {
   onViewProjects: () => void;
@@ -13,21 +13,18 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Background */}
       <Suspense fallback={<div className="absolute inset-0 bg-background" />}>
-        <Hero3D />
+        <MatrixRain />
       </Suspense>
 
       {/* Content */}
       <div className="section-container relative z-10 text-center">
         <div className="space-y-6 animate-fade-in-up">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 border border-border/50 backdrop-blur-sm animate-bounce-subtle">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
-            <span className="text-sm text-muted-foreground">Building Intelligent Systems</span>
-          </div>
+
 
           {/* Name */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span className="text-shimmer">AI Developer</span>
+            <span className="text-gradient-primary">AI Developer</span>
           </h1>
 
           {/* Tagline */}
@@ -52,7 +49,11 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
               asChild
               className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-foreground hover:border-primary/50 px-8 py-6 text-lg transition-all"
             >
-              <a href="#resume">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FileText className="mr-2 h-5 w-5" />
                 Resume
               </a>

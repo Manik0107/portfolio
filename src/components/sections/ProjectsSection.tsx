@@ -23,10 +23,9 @@ export default function ProjectsSection() {
           className="text-center mb-10"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-shimmer">Featured Projects</span>
+            <span className="text-gradient-primary">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed font-mono">
-           // DRAG TO NAVIGATE SYSTEM ARCHIVE
             <br />
             <span className="text-sm opacity-70">
               [ A selection of deployed AI systems and neural architectures ]
