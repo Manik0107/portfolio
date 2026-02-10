@@ -1,13 +1,13 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useTransform, useMotionValue, animate, MotionValue } from 'framer-motion';
 import { projects } from '@/data/projects';
 import { ArrowUpRight, Github, Box, ChevronLeft, ChevronRight } from 'lucide-react';
 import ProjectModal from './ProjectModal';
 
-// Styles
 const CARD_WIDTH = 350;
 const CARD_GAP = 50;
 const ITEM_FULL_WIDTH = CARD_WIDTH + CARD_GAP;
+const CENTER_THRESHOLD = ITEM_FULL_WIDTH * 0.6; // cards within this distance from center are selectable
 
 // Tick Mark Component
 const Tick = ({ x, index }: { x: MotionValue<number>, index: number }) => {
@@ -80,8 +80,18 @@ const WheelCard = ({
         const pos = latest + cardOffset;
         return -pos / 15;
     });
-
     const zIndex = useTransform(distance, (d) => Math.round(1000 - d));
+
+    // Determine if card is near center (selectable)
+    const isSelectable = useTransform(distance, (d) => d < CENTER_THRESHOLD);
+
+    const handleClick = useCallback(() => {
+        // Only allow click if card is near center
+        const dist = Math.abs(x.get() + cardOffset);
+        if (dist < CENTER_THRESHOLD) {
+            onClick();
+        }
+    }, [x, cardOffset, onClick]);
 
     return (
         <motion.div
@@ -94,9 +104,8 @@ const WheelCard = ({
                 left: '50%',
                 x: cardOffset - CARD_WIDTH / 2,
             }}
-            className="absolute top-0 h-[500px] cursor-pointer perspective-1000 origin-center"
-            onClick={onClick}
-            whileHover={{ scale: 1.15, zIndex: 2000 }}
+            className="absolute top-0 h-[500px] perspective-1000 origin-center"
+            onClick={handleClick}
         >
             <div className="w-full h-full relative group">
                 <div className="absolute inset-0 bg-card/90 backdrop-blur-xl border border-primary/40 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(45,212,191,0.2)]">
@@ -151,15 +160,12 @@ export default function ProjectWheel() {
     const isDragging = useRef(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Motion Value for Drag - Start at Index 2 (Center Project)
     const x = useMotionValue(-2 * ITEM_FULL_WIDTH);
 
-    // Bounds
     const totalWidth = (projects.length - 1) * ITEM_FULL_WIDTH;
     const leftConstraint = -totalWidth - ITEM_FULL_WIDTH;
     const rightConstraint = ITEM_FULL_WIDTH;
 
-    // Navigate by arrow buttons
     const navigateBy = (direction: number) => {
         const currentX = x.get();
         const targetX = Math.round(currentX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH + direction * ITEM_FULL_WIDTH;
@@ -167,19 +173,16 @@ export default function ProjectWheel() {
         animate(x, clampedX, { type: 'spring', stiffness: 300, damping: 30 });
     };
 
-    // Horizontal-only trackpad/touch listener (deltaX only, ignore deltaY)
+    // Horizontal-only trackpad listener
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         const onWheel = (e: WheelEvent) => {
-            // Only respond to horizontal swipe (deltaX), let vertical scroll pass through
             if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
-
             e.preventDefault();
             const currentX = x.get();
             const newX = currentX - e.deltaX;
-
             if (newX > rightConstraint || newX < leftConstraint) {
                 x.set(currentX - e.deltaX * 0.2);
             } else {
@@ -199,19 +202,19 @@ export default function ProjectWheel() {
                 <Dial x={useTransform(x, (v) => v * 0.5)} />
             </div>
 
-            {/* Left Arrow */}
+            {/* Left Arrow - flush to edge */}
             <button
                 onClick={() => navigateBy(1)}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
                 aria-label="Previous project"
             >
                 <ChevronLeft className="w-6 h-6 text-foreground" />
             </button>
 
-            {/* Right Arrow */}
+            {/* Right Arrow - flush to edge */}
             <button
                 onClick={() => navigateBy(-1)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
                 aria-label="Next project"
             >
                 <ChevronRight className="w-6 h-6 text-foreground" />
