@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useTransform, useMotionValue, MotionValue } from 'framer-motion';
+import { motion, useTransform, useMotionValue, animate, MotionValue } from 'framer-motion';
 import { projects } from '@/data/projects';
-import { ArrowUpRight, Github, Monitor, Box } from 'lucide-react';
+import { ArrowUpRight, Github, Box, ChevronLeft, ChevronRight } from 'lucide-react';
 import ProjectModal from './ProjectModal';
 
 // Styles
@@ -13,7 +13,6 @@ const ITEM_FULL_WIDTH = CARD_WIDTH + CARD_GAP;
 const Tick = ({ x, index }: { x: MotionValue<number>, index: number }) => {
     const position = index * 20;
 
-    // Calculate opacity based on distance from center
     const opacity = useTransform(x, (latest) => {
         const dist = Math.abs(position + latest);
         return Math.max(0.2, 1 - dist / 700);
@@ -75,7 +74,6 @@ const WheelCard = ({
         return Math.abs(latest + cardOffset);
     });
 
-    // Enhanced transforms 
     const scale = useTransform(distance, [0, 500], [1.1, 0.65]);
     const opacity = useTransform(distance, [0, 600], [1, 0.4]);
     const rotateY = useTransform(x, (latest) => {
@@ -102,9 +100,7 @@ const WheelCard = ({
         >
             <div className="w-full h-full relative group">
                 <div className="absolute inset-0 bg-card/90 backdrop-blur-xl border border-primary/40 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(45,212,191,0.2)]">
-                    {/* Content */}
                     <div className="p-8 h-full flex flex-col relative z-10">
-                        {/* Header */}
                         <div className="flex justify-between items-center mb-6">
                             <div className="flex items-center gap-2 text-primary">
                                 <Box className="w-4 h-4" />
@@ -117,12 +113,10 @@ const WheelCard = ({
                             </div>
                         </div>
 
-                        {/* Title */}
                         <h3 className="text-3xl font-bold text-foreground mb-3 font-mono group-hover:text-accent transition-colors">
                             {project.title}
                         </h3>
 
-                        {/* Tech Stack */}
                         <div className="flex flex-wrap gap-2 mb-6">
                             {project.techStack.slice(0, 3).map(tech => (
                                 <span key={tech} className="text-[10px] font-mono px-2 py-1 rounded bg-secondary/80 text-secondary-foreground border border-white/10">
@@ -131,12 +125,10 @@ const WheelCard = ({
                             ))}
                         </div>
 
-                        {/* Description */}
                         <p className="text-muted-foreground text-sm leading-relaxed font-mono opacity-90 flex-grow">
                             {project.description}
                         </p>
 
-                        {/* Footer */}
                         <div className="pt-4 border-t border-white/10 flex items-center justify-between mt-auto">
                             <span className="text-xs font-mono text-accent flex items-center gap-2">
                                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_8px_currentColor]" />
@@ -146,7 +138,6 @@ const WheelCard = ({
                         </div>
                     </div>
 
-                    {/* Brighter Gradient Effects */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
                     <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background via-background/60 to-transparent" />
                 </div>
@@ -159,7 +150,6 @@ export default function ProjectWheel() {
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
     const isDragging = useRef(false);
     const containerRef = useRef<HTMLDivElement>(null);
-    const snapTimeout = useRef<NodeJS.Timeout>();
 
     // Motion Value for Drag - Start at Index 2 (Center Project)
     const x = useMotionValue(-2 * ITEM_FULL_WIDTH);
@@ -169,36 +159,32 @@ export default function ProjectWheel() {
     const leftConstraint = -totalWidth - ITEM_FULL_WIDTH;
     const rightConstraint = ITEM_FULL_WIDTH;
 
-    // Handle Wheel Scroll
+    // Navigate by arrow buttons
+    const navigateBy = (direction: number) => {
+        const currentX = x.get();
+        const targetX = Math.round(currentX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH + direction * ITEM_FULL_WIDTH;
+        const clampedX = Math.max(leftConstraint, Math.min(rightConstraint, targetX));
+        animate(x, clampedX, { type: 'spring', stiffness: 300, damping: 30 });
+    };
+
+    // Horizontal-only trackpad/touch listener (deltaX only, ignore deltaY)
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         const onWheel = (e: WheelEvent) => {
+            // Only respond to horizontal swipe (deltaX), let vertical scroll pass through
+            if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+
             e.preventDefault();
-
             const currentX = x.get();
-            // Translate vertical scroll to horizontal movement
-            const newX = currentX - e.deltaY;
+            const newX = currentX - e.deltaX;
 
-            // Apply resistance at edges
             if (newX > rightConstraint || newX < leftConstraint) {
-                x.set(currentX - e.deltaY * 0.2);
+                x.set(currentX - e.deltaX * 0.2);
             } else {
                 x.set(newX);
             }
-
-            // Debounce snap to nearest item
-            clearTimeout(snapTimeout.current);
-            snapTimeout.current = setTimeout(() => {
-                const finalX = x.get();
-                const snappedX = Math.round(finalX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH;
-                // Note: We don't animate the snap here because mixing manual set() with dragTransition is complex.
-                // But dragging will snap. 
-                // If we want to snap after wheel, we'd need to use 'animate' from framer-motion.
-                // For now, we leave it free-floating on wheel or let user touch to snap.
-                // Actually, let's just let it be free on wheel for precise inspection.
-            }, 150);
         };
 
         container.addEventListener('wheel', onWheel, { passive: false });
@@ -208,17 +194,34 @@ export default function ProjectWheel() {
     return (
         <div ref={containerRef} className="w-full relative h-[700px] flex flex-col items-center justify-center overflow-visible touch-none">
 
-            {/* Background Dial - Parallax - Increased Opacity */}
+            {/* Background Dial */}
             <div className="absolute inset-0 flex items-center justify-center opacity-80 pointer-events-none">
                 <Dial x={useTransform(x, (v) => v * 0.5)} />
             </div>
 
-            {/* Drag Container - Explicit bg-transparent to catch events */}
+            {/* Left Arrow */}
+            <button
+                onClick={() => navigateBy(1)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                aria-label="Previous project"
+            >
+                <ChevronLeft className="w-6 h-6 text-foreground" />
+            </button>
+
+            {/* Right Arrow */}
+            <button
+                onClick={() => navigateBy(-1)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full border border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                aria-label="Next project"
+            >
+                <ChevronRight className="w-6 h-6 text-foreground" />
+            </button>
+
+            {/* Drag Container */}
             <motion.div
                 className="absolute z-20 flex items-center justify-center cursor-grab active:cursor-grabbing w-full h-full bg-transparent"
                 style={{ x }}
                 drag="x"
-                // Constraints loose to allow overscroll
                 dragConstraints={{ right: ITEM_FULL_WIDTH, left: -totalWidth - ITEM_FULL_WIDTH }}
                 dragElastic={0.05}
                 onDragStart={() => { isDragging.current = true; }}
