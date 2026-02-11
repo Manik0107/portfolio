@@ -25,13 +25,26 @@ const highlights = [
 
 ];
 
-const TypingEffect = ({ text }: { text: string[] }) => {
+const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: boolean }) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
+    if (startTyping && !hasStarted) {
+      setHasStarted(true);
+      setCurrentText('');
+      setCurrentIndex(0);
+      setTextIndex(0);
+      setIsDeleting(false);
+    }
+  }, [startTyping]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
     const typeSpeed = isDeleting ? 50 : 100;
     const pauseTime = 2000;
 
@@ -56,7 +69,7 @@ const TypingEffect = ({ text }: { text: string[] }) => {
 
     const timer = setTimeout(type, typeSpeed);
     return () => clearTimeout(timer);
-  }, [currentIndex, isDeleting, text, textIndex]);
+  }, [currentIndex, isDeleting, text, textIndex, hasStarted]);
 
   return (
     <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
@@ -69,9 +82,16 @@ const TypingEffect = ({ text }: { text: string[] }) => {
 export default function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        onEnter: () => setIsInView(true),
+      });
+
       gsap.from(contentRef.current, {
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -157,6 +177,7 @@ export default function AboutSection() {
           <div className="text-center lg:text-left flex-1">
             <div className="mb-6 h-[40px] flex items-center justify-center">
               <TypingEffect
+                startTyping={isInView}
                 text={[
                   "Hi, I'm Manik Manavenddra M",
                   "AI Engineer",
