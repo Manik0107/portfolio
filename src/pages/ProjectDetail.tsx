@@ -9,7 +9,7 @@ export default function ProjectDetail() {
   const project = projects.find((p) => p.slug === slug);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [slug]);
 
   if (!project) {
@@ -18,9 +18,9 @@ export default function ProjectDetail() {
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
           <Button asChild>
-            <Link to="/">
+            <Link to="/" state={{ target: 'projects' }}>
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Home
+              Back to Projects
             </Link>
           </Button>
         </div>
@@ -36,10 +36,11 @@ export default function ProjectDetail() {
           <div className="flex items-center justify-between h-16">
             <Link
               to="/"
+              state={{ target: 'projects', previousProject: project.slug }}
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Portfolio</span>
+              <span className="text-sm">Back to Projects</span>
             </Link>
             <Button size="sm" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">

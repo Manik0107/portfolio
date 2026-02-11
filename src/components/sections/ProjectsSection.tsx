@@ -2,7 +2,11 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import ProjectWheel from '@/components/ProjectWheel';
 
-export default function ProjectsSection() {
+interface ProjectsSectionProps {
+  initialProject?: string;
+}
+
+export default function ProjectsSection({ initialProject }: ProjectsSectionProps) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -35,7 +39,7 @@ export default function ProjectsSection() {
 
         {/* Camera Zoom Style Wheel Scroller */}
         <div className="w-full">
-          <ProjectWheel />
+          <ProjectWheel initialProject={initialProject} />
         </div>
       </div>
     </section>

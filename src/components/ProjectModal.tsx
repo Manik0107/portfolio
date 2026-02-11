@@ -42,7 +42,7 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                        transition={{ type: 'spring', stiffness: 80, damping: 15, mass: 1 }}
                         className="fixed inset-4 md:inset-8 lg:inset-16 z-50 overflow-hidden"
                     >
                         <div className="glass-card h-full overflow-y-auto">

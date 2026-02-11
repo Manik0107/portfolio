@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useTransform, useMotionValue, animate, MotionValue } from 'framer-motion';
+import { useRef, useEffect, useCallback } from 'react';
+import { motion, useTransform, useMotionValue, animate, MotionValue, useSpring } from 'framer-motion';
 import { projects } from '@/data/projects';
 import { ArrowUpRight, Github, Box, ChevronLeft, ChevronRight } from 'lucide-react';
-import ProjectModal from './ProjectModal';
+import { useNavigate } from 'react-router-dom';
 
 const CARD_WIDTH = 350;
 const CARD_GAP = 50;
@@ -70,6 +70,7 @@ const WheelCard = ({
 }) => {
     const cardOffset = index * ITEM_FULL_WIDTH;
 
+    // We use the smoothed x value passed from parent
     const distance = useTransform(x, (latest) => {
         return Math.abs(latest + cardOffset);
     });
@@ -78,12 +79,10 @@ const WheelCard = ({
     const opacity = useTransform(distance, [0, 600], [1, 0.4]);
     const rotateY = useTransform(x, (latest) => {
         const pos = latest + cardOffset;
-        return -pos / 15;
+        // Reduced rotation sensitivity for smoother feel
+        return -pos / 20;
     });
     const zIndex = useTransform(distance, (d) => Math.round(1000 - d));
-
-    // Determine if card is near center (selectable)
-    const isSelectable = useTransform(distance, (d) => d < CENTER_THRESHOLD);
 
     const handleClick = useCallback(() => {
         // Only allow click if card is near center
@@ -155,12 +154,27 @@ const WheelCard = ({
     );
 };
 
-export default function ProjectWheel() {
-    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+export default function ProjectWheel({ initialProject }: { initialProject?: string }) {
     const isDragging = useRef(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
-    const x = useMotionValue(-2 * ITEM_FULL_WIDTH);
+    // Determine initial index based on passed project slug or default to 2
+    const initialIndex = initialProject
+        ? projects.findIndex(p => p.slug === initialProject)
+        : 2;
+
+    // Fallback to 2 if project not found (-1)
+    const activeIndex = initialIndex >= 0 ? initialIndex : 2;
+
+    const x = useMotionValue(-activeIndex * ITEM_FULL_WIDTH);
+
+    // Smooth spring physics for all movements
+    const smoothX = useSpring(x, {
+        stiffness: 120,  // Much softer (was 150)
+        damping: 25,    // More viscous (was 20)
+        mass: 0.5       // Heavier feel (was 0.5)
+    });
 
     const totalWidth = (projects.length - 1) * ITEM_FULL_WIDTH;
     const leftConstraint = -totalWidth - ITEM_FULL_WIDTH;
@@ -170,7 +184,13 @@ export default function ProjectWheel() {
         const currentX = x.get();
         const targetX = Math.round(currentX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH + direction * ITEM_FULL_WIDTH;
         const clampedX = Math.max(leftConstraint, Math.min(rightConstraint, targetX));
-        animate(x, clampedX, { type: 'spring', stiffness: 300, damping: 30 });
+
+        // Use smoother animation parameters
+        animate(x, clampedX, {
+            type: 'spring',
+            stiffness: 80,  // Slower, more elegant (was 120)
+            damping: 25     // No bounce (was 20)
+        });
     };
 
     // Horizontal-only trackpad listener
@@ -197,12 +217,12 @@ export default function ProjectWheel() {
     return (
         <div ref={containerRef} className="w-full relative h-[700px] flex flex-col items-center justify-center overflow-visible touch-none">
 
-            {/* Background Dial */}
+            {/* Background Dial - uses smoothed X */}
             <div className="absolute inset-0 flex items-center justify-center opacity-80 pointer-events-none">
-                <Dial x={useTransform(x, (v) => v * 0.5)} />
+                <Dial x={useTransform(smoothX, (v) => v * 0.5)} />
             </div>
 
-            {/* Left Arrow - flush to edge */}
+            {/* Left Button */}
             <button
                 onClick={() => navigateBy(1)}
                 className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
@@ -211,7 +231,7 @@ export default function ProjectWheel() {
                 <ChevronLeft className="w-6 h-6 text-foreground" />
             </button>
 
-            {/* Right Arrow - flush to edge */}
+            {/* Right Button */}
             <button
                 onClick={() => navigateBy(-1)}
                 className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
@@ -232,8 +252,8 @@ export default function ProjectWheel() {
                     setTimeout(() => { isDragging.current = false; }, 50);
                 }}
                 dragTransition={{
-                    power: 0.4,
-                    timeConstant: 300,
+                    power: 0.1,       // Very low friction (was 0.3)
+                    timeConstant: 500, // Long slide (was 250)
                     modifyTarget: (target) => {
                         return Math.round(target / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH;
                     }
@@ -244,23 +264,15 @@ export default function ProjectWheel() {
                         key={project.id}
                         project={project}
                         index={i}
-                        x={x}
+                        x={smoothX} // Pass smoothed X to cards
                         onClick={() => {
                             if (!isDragging.current) {
-                                setSelectedProject(project);
+                                navigate(`/project/${project.slug}`);
                             }
                         }}
                     />
                 ))}
             </motion.div>
-
-            {/* Modal */}
-            <ProjectModal
-                project={selectedProject!}
-                isOpen={!!selectedProject}
-                onClose={() => setSelectedProject(null)}
-                colorScheme="primary"
-            />
         </div>
     );
 }

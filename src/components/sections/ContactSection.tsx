@@ -10,8 +10,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
-  
-  const email = 'hello@example.com'; // Replace with actual email
+
+  const email = 'manikmanavenddra@gmail.com';
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -48,32 +48,31 @@ export default function ContactSection() {
             <span className="text-gradient-primary">Let's Connect</span>
           </h2>
           <p className="text-muted-foreground mb-12">
-            Interested in working together or have a question about AI systems? 
+            Interested in working together or have a question about AI systems?
             I'd love to hear from you.
           </p>
 
-          {/* Email with copy */}
-          <div className="glass-card p-6 mb-8 inline-flex items-center gap-4">
-            <Mail className="w-5 h-5 text-accent" />
-            <span className="text-lg">{email}</span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={copyEmail}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {copied ? (
-                <Check className="w-4 h-4 text-accent" />
-              ) : (
-                <Copy className="w-4 h-4" />
-              )}
-            </Button>
-          </div>
-
-          {/* Social Links */}
+          {/* Social Links & Email */}
           <div className="flex items-center justify-center gap-6">
+            {/* Email */}
+            <button
+              onClick={copyEmail}
+              className="glass-card p-4 hover-lift group relative"
+              aria-label="Copy Email"
+            >
+              <div className="relative">
+                <Mail
+                  className={`w-6 h-6 text-muted-foreground group-hover:text-foreground transition-all duration-300 ${copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                />
+                <Check
+                  className={`w-6 h-6 text-accent absolute top-0 left-0 transition-all duration-300 ${copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+                />
+              </div>
+            </button>
+
+            {/* GitHub */}
             <a
-              href="https://github.com"
+              href="https://github.com/Manik0107"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-card p-4 hover-lift group"
@@ -81,8 +80,10 @@ export default function ContactSection() {
             >
               <Github className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
             </a>
+
+            {/* LinkedIn */}
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/manik-manavenddra/"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-card p-4 hover-lift group"
