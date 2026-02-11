@@ -41,7 +41,7 @@
 
     /* Muted elements */
     --muted: 222 30% 18%;
-    --muted-foreground: 220 13% 65%;
+    --muted-foreground: 0 0% 100%;
 
     /* Destructive */
     --destructive: 0 84% 60%;
