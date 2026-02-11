@@ -4,6 +4,7 @@ import AnimatedBackground from '@/components/AnimatedBackground';
 import CodingBackground from '@/components/CodingBackground';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
+import ExperienceSection from '@/components/sections/ExperienceSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ResumeSection from '@/components/sections/ResumeSection';
@@ -48,6 +49,7 @@ const Index = () => {
       <main>
         <HeroSection onViewProjects={scrollToProjects} />
         <AboutSection />
+        <ExperienceSection />
         <div ref={projectsRef}>
           <ProjectsSection />
         </div>
