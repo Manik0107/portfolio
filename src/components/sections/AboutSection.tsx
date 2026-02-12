@@ -8,11 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const highlights = [
   {
-    icon: Brain,
-    title: 'AI Systems',
-    description: 'LLM integrations, RAG pipelines, and intelligent agents',
-  },
-  {
     icon: Workflow,
     title: 'Agentic Workflows',
     description: 'Multi-agent orchestration and autonomous task execution',
