@@ -2,23 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Brain, Workflow, Server } from 'lucide-react';
+
 
 gsap.registerPlugin(ScrollTrigger);
-
-const highlights = [
-  {
-    icon: Workflow,
-    title: 'Agentic Workflows',
-    description: 'Multi-agent orchestration and autonomous task execution',
-  },
-  {
-    icon: Server,
-    title: 'Production Scale',
-    description: 'Deployment-ready systems with monitoring and optimization',
-  },
-
-];
 
 const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: boolean }) => {
   const [currentText, setCurrentText] = useState('');
@@ -188,22 +174,6 @@ export default function AboutSection() {
               with a production mindset.
             </p>
           </div>
-        </div>
-
-        {/* Highlights Grid */}
-        <div className="highlights-grid grid grid-cols-1 md:grid-cols-3 gap-6">
-          {highlights.map((item, index) => (
-            <div
-              key={index}
-              className="highlight-card glass-card p-8 text-center hover-lift"
-            >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 text-primary mb-6 animate-float">
-                <item.icon className="w-7 h-7" />
-              </div>
-              <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.description}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
