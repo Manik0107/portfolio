@@ -14,14 +14,6 @@ const experiences = [
       'Building production-grade AI systems, LLM integrations, and agentic workflows for enterprise clients.',
     highlights: ['RAG pipelines', 'Multi-agent orchestration', 'LLM fine-tuning'],
   },
-  {
-    company: 'X Technology',
-    role: 'Software Developer',
-    period: '2021 – 2023',
-    description:
-      'Developed scalable backend services and deployed ML models into production environments.',
-    highlights: ['REST APIs', 'ML deployment', 'Cloud infrastructure'],
-  },
 ];
 
 export default function ExperienceSection() {
