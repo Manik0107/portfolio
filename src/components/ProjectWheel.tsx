@@ -225,7 +225,9 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
             {/* Left Button */}
             <button
                 onClick={() => navigateBy(1)}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                className="absolute z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors 
+                max-md:bottom-8 max-md:left-[calc(50%-50px)]
+                md:top-1/2 md:-translate-y-1/2 md:left-[calc(50%-270px)]"
                 aria-label="Previous project"
             >
                 <ChevronLeft className="w-6 h-6 text-foreground" />
@@ -234,7 +236,9 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
             {/* Right Button */}
             <button
                 onClick={() => navigateBy(-1)}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors"
+                className="absolute z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors
+                max-md:bottom-8 max-md:right-[calc(50%-50px)]
+                md:top-1/2 md:-translate-y-1/2 md:right-[calc(50%-270px)]"
                 aria-label="Next project"
             >
                 <ChevronRight className="w-6 h-6 text-foreground" />
