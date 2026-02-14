@@ -24,13 +24,14 @@ export default function ExperienceSection() {
       gsap.from('.timeline-item', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 80%',
+          start: 'top 70%', // Trigger slightly earlier
         },
-        x: -40,
+        y: 50, // Slide up from bottom
         opacity: 0,
-        stagger: 0.25,
+        scale: 0.95, // Slight scale up
+        stagger: 0.2, // Faster stagger
         duration: 0.8,
-        ease: 'power3.out',
+        ease: 'back.out(1.7)', // Bouncy easing for pop effect
       });
     }, sectionRef);
     return () => ctx.revert();

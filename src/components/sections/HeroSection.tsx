@@ -1,8 +1,8 @@
-import { Suspense, lazy } from 'react';
+
 import { ArrowDown, FileText, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const MatrixRain = lazy(() => import('@/components/MatrixRain'));
+
 
 interface HeroSectionProps {
   onViewProjects: () => void;
@@ -12,9 +12,10 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Background */}
-      <Suspense fallback={<div className="absolute inset-0 bg-background" />}>
-        <MatrixRain />
-      </Suspense>
+
+
+      {/* Grid Overlay */}
+      <div className="absolute inset-0 z-0 hero-grid pointer-events-none" />
 
       {/* Content */}
       <div className="section-container relative z-10 text-center">

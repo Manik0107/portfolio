@@ -195,6 +195,14 @@
       linear-gradient(90deg, hsl(222 30% 15% / 0.5) 1px, transparent 1px);
     background-size: 50px 50px;
   }
+
+  /* Brighter grid for Hero section */
+  .hero-grid {
+    background-image:
+      linear-gradient(hsl(217 91% 60% / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(217 91% 60% / 0.2) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
 }
 
 @layer utilities {
