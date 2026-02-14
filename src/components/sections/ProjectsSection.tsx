@@ -24,17 +24,12 @@ export default function ProjectsSection({ initialProject }: ProjectsSectionProps
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-24"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-gradient-primary">Projects</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed font-mono">
-            <br />
-            <span className="text-sm opacity-70">
-              [ A selection of deployed AI systems and neural architectures ]
-            </span>
-          </p>
+
         </motion.div>
 
         {/* Camera Zoom Style Wheel Scroller */}
