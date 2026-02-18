@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, Github, Linkedin, Copy, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -52,9 +51,7 @@ export default function ContactSection() {
             I'd love to hear from you.
           </p>
 
-          {/* Social Links & Email */}
           <div className="flex items-center justify-center gap-6">
-            {/* Email */}
             <button
               onClick={copyEmail}
               className="glass-card p-4 hover-lift group relative"
@@ -70,7 +67,6 @@ export default function ContactSection() {
               </div>
             </button>
 
-            {/* GitHub */}
             <a
               href="https://github.com/Manik0107"
               target="_blank"
@@ -81,7 +77,6 @@ export default function ContactSection() {
               <Github className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
             </a>
 
-            {/* LinkedIn */}
             <a
               href="https://www.linkedin.com/in/manik-manavenddra/"
               target="_blank"
@@ -95,7 +90,6 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* Footer */}
       <div className="mt-32 border-t border-border/50 pt-8">
         <div className="section-container text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} AI Developer. Built with precision.</p>

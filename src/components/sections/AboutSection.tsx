@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: boolean }) => {
@@ -108,7 +107,6 @@ export default function AboutSection() {
     >
       <div className="section-container">
         <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-12 mb-16">
-          {/* Profile Picture - Large Vertical with Animations */}
           <motion.div
             className="profile-picture flex-shrink-0"
             initial={{ opacity: 0, x: -50 }}
@@ -135,7 +133,6 @@ export default function AboutSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
 
-              {/* Animated border glow */}
               <motion.div
                 className="absolute inset-0 rounded-2xl"
                 animate={{
@@ -154,7 +151,6 @@ export default function AboutSection() {
             </motion.div>
           </motion.div>
 
-          {/* About Text */}
           <div className="text-center lg:text-left flex-1">
             <div className="mb-6 h-[40px] flex items-center justify-center">
               <TypingEffect

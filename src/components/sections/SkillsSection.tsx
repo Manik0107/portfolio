@@ -23,11 +23,7 @@ export default function SkillsSection() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // GSAP context removed to fix visibility issue
-    const ctx = gsap.context(() => {
-      // Intentionally empty
-    }, sectionRef);
-
+    const ctx = gsap.context(() => { }, sectionRef);
     return () => ctx.revert();
   }, []);
 

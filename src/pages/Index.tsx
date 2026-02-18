@@ -16,19 +16,15 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Handle navigation state scrolling (e.g. Back from Project Detail)
     if (location.state?.target === 'projects') {
       const projectsElement = document.getElementById('projects');
       if (projectsElement) {
-        // Instant jump to projects
         setTimeout(() => {
           projectsElement.scrollIntoView({ behavior: 'instant', block: 'start' });
-          // Clear state so refresh goes to top
           window.history.replaceState({}, document.title);
         }, 0);
       }
     } else {
-      // Normal load / Refresh -> Always Hero
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
@@ -45,12 +41,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background neural-grid">
-      {/* Coding animation background */}
       <CodingBackground />
-
-      {/* Animated gradient background */}
       <AnimatedBackground />
-
       <Navbar />
 
       <main>

@@ -30,7 +30,6 @@ export default function ProjectDetail() {
 
   return (
     <div className="min-h-screen bg-background neural-grid">
-      {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="section-container">
           <div className="flex items-center justify-between h-16">
@@ -52,11 +51,9 @@ export default function ProjectDetail() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="pt-32 pb-20">
         <div className="section-container">
           <div className="max-w-4xl mx-auto">
-            {/* Title Section */}
             <div className="mb-12 animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 <span className="text-gradient-primary">{project.title}</span>
@@ -66,7 +63,6 @@ export default function ProjectDetail() {
               </p>
             </div>
 
-            {/* Tech Stack */}
             <div className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
               <h2 className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">
                 Tech Stack
@@ -83,7 +79,6 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            {/* Problem Statement */}
             <div className="glass-card p-8 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-gold" />
@@ -94,7 +89,6 @@ export default function ProjectDetail() {
               </p>
             </div>
 
-            {/* Architecture Overview */}
             <div className="glass-card p-8 mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-primary" />
@@ -105,7 +99,6 @@ export default function ProjectDetail() {
               </p>
             </div>
 
-            {/* Core Features */}
             <div className="glass-card p-8 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-accent" />
@@ -121,7 +114,6 @@ export default function ProjectDetail() {
               </ul>
             </div>
 
-            {/* CTA */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               <Button
                 size="lg"
@@ -149,7 +141,6 @@ export default function ProjectDetail() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-border/50 py-8">
         <div className="section-container text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} AI Developer. Built with precision.</p>

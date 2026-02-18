@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FileText, Download, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +24,6 @@ export default function ResumeSection() {
     return () => ctx.revert();
   }, []);
 
-  // Placeholder path - replace with actual resume path
   const resumePath = '/resume.pdf';
 
   return (
@@ -38,9 +35,16 @@ export default function ResumeSection() {
       <div className="section-container">
         <div className="resume-content max-w-4xl mx-auto">
           <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg">
+                M
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                <span className="text-gradient-primary">Resume</span>
+              </h2>
+            </div>
           </div>
 
-          {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { label: 'Years Experience', value: '2' },

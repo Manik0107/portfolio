@@ -19,7 +19,6 @@ export default function ProjectsSection({ initialProject }: ProjectsSectionProps
       className="py-20 relative overflow-x-hidden min-h-screen flex flex-col justify-center"
     >
       <div className="section-container relative z-10">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -29,10 +28,8 @@ export default function ProjectsSection({ initialProject }: ProjectsSectionProps
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-gradient-primary">Projects</span>
           </h2>
-
         </motion.div>
 
-        {/* Camera Zoom Style Wheel Scroller */}
         <div className="w-full">
           <ProjectWheel initialProject={initialProject} />
         </div>

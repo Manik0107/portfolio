@@ -1,8 +1,5 @@
-
 import { ArrowDown, FileText, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-
 
 interface HeroSectionProps {
   onViewProjects: () => void;
@@ -11,30 +8,19 @@ interface HeroSectionProps {
 export default function HeroSection({ onViewProjects }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
-
-
-      {/* Grid Overlay */}
       <div className="absolute inset-0 z-0 hero-grid pointer-events-none" />
 
-      {/* Content */}
       <div className="section-container relative z-10 text-center">
         <div className="space-y-6 animate-fade-in-up">
-          {/* Badge */}
-
-
-          {/* Name */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
             <span className="text-gradient-primary">AI Developer</span>
           </h1>
 
-          {/* Tagline */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Engineering production-grade AI systems, agentic workflows,
             and intelligent automation that solves real problems.
           </p>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
             <Button
               size="lg"
@@ -61,7 +47,6 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
             </Button>
           </div>
 
-          {/* Social Links */}
           <div className="flex items-center justify-center gap-6 pt-8">
             <a
               href="https://github.com/Manik0107"

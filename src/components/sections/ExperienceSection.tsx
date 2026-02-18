@@ -24,14 +24,14 @@ export default function ExperienceSection() {
       gsap.from('.timeline-item', {
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 70%', // Trigger slightly earlier
+          start: 'top 70%',
         },
-        y: 50, // Slide up from bottom
+        y: 50,
         opacity: 0,
-        scale: 0.95, // Slight scale up
-        stagger: 0.2, // Faster stagger
+        scale: 0.95,
+        stagger: 0.2,
         duration: 0.8,
-        ease: 'back.out(1.7)', // Bouncy easing for pop effect
+        ease: 'back.out(1.7)',
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -45,13 +45,11 @@ export default function ExperienceSection() {
         </h2>
 
         <div className="relative max-w-3xl mx-auto">
-          {/* Timeline line */}
           <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-primary/30" />
 
           <div className="space-y-10">
             {experiences.map((exp, i) => (
               <div key={i} className="timeline-item relative pl-16 md:pl-20">
-                {/* Dot */}
                 <div className="absolute left-4 md:left-6 top-1 w-4 h-4 rounded-full bg-primary border-2 border-background glow-primary" />
 
                 <div className="glass-card p-6 hover-lift">
