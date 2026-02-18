@@ -24,7 +24,7 @@ export default function ResumeSection() {
     return () => ctx.revert();
   }, []);
 
-  const resumePath = '/resume.pdf';
+  const resumePath = '/resume';
 
   return (
     <section
