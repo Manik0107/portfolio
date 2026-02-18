@@ -36,9 +36,7 @@ export default function ResumeSection() {
         <div className="resume-content max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-lg">
-                M
-              </div>
+              <img src="/favicon.svg" alt="M" className="w-10 h-10 rounded-xl" />
               <h2 className="text-3xl md:text-4xl font-bold">
                 <span className="text-gradient-primary">Resume</span>
               </h2>
