@@ -1,33 +1,12 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, Github, Linkedin, Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function ContactSection() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [copied, setCopied] = useState(false);
 
   const email = 'manikmanavenddra@gmail.com';
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-content', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-    }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText(email);
@@ -37,7 +16,6 @@ export default function ContactSection() {
 
   return (
     <section
-      ref={sectionRef}
       id="contact"
       className="py-20 relative"
     >

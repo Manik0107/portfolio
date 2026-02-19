@@ -10,6 +10,7 @@ export interface Project {
   architecture: string;
   githubUrl: string;
   imageUrl?: string;
+  imagePlaceholder?: string;
   metrics?: string[];
 }
 
@@ -31,6 +32,8 @@ export const projects: Project[] = [
     problemStatement: 'Digital note-taking often lacks the cognitive benefits of handwriting, while physical notes lack the searchability and connectivity of digital tools.',
     architecture: 'Uses a multi-agent system (Agno) for content analysis and diagram generation. A custom floating layout engine arranges content into page-sized segments, which are then rendered with realistic handwriting synthesis.',
     githubUrl: 'https://github.com/Manik0107/.ink',
+    imageUrl: '/projects/.ink.png',
+    imagePlaceholder: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)',
   },
   {
     id: '2',
@@ -49,6 +52,8 @@ export const projects: Project[] = [
     problemStatement: 'Keeping documentation in sync with rapidly evolving codebases is a manual, error-prone process that often leads to outdated or missing information.',
     architecture: 'Scans repositories using GithubTools, analyzes code structure with Tree-sitter, and generates documentation and diagrams through an automated pipeline that produces publication-ready PDFs.',
     githubUrl: 'https://github.com/Manik0107/Git2Doc',
+    imageUrl: '/projects/Git2Doc.png',
+    imagePlaceholder: 'linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #1e3a5f 100%)',
   },
   {
     id: '1',
@@ -67,6 +72,8 @@ export const projects: Project[] = [
     problemStatement: 'Enterprises face overwhelming, fast-moving market data, while dashboards and SaaS intelligence tools remain passive, slow, and human-dependent. They report past events but fail to verify, reason, or predict outcomes in real time.',
     architecture: 'The system uses a supervisor agent pattern with specialized worker agents for data collection, analysis, and synthesis. A central knowledge graph stores relationships between entities, while vector embeddings enable semantic retrieval.',
     githubUrl: 'https://github.com/Manik0107/Agentic_Market_Intelligence',
+    imageUrl: '/projects/Agentic%20Market%20Intelligence.png',
+    imagePlaceholder: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%)',
   },
   {
     id: '3',
@@ -85,11 +92,13 @@ export const projects: Project[] = [
     problemStatement: 'Creating high-quality educational animations is time-consuming and requires specialized coding skills. Converting textbook content into engaging visual explanations is a manual bottleneck.',
     architecture: 'A pipeline architecture including extracting content from PDFs, generating educational storyboards, producing voiceovers, and generating Manim code with a multi-layer validation system.',
     githubUrl: 'https://github.com/Manik0107/VATA',
+    imageUrl: '/projects/vata.png',
+    imagePlaceholder: 'linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #11998e 100%)',
   },
   {
     id: '5',
-    slug: 'hierai',
-    title: 'HierAI',
+    slug: 'hireai',
+    title: 'HireAI',
     description: 'HR recruitment automation system for candidate screening and interviews.',
     longDescription: 'A full-stack, automated recruitment system that handles the hiring process from resume screening to final interviews. It employs hierarchical agents to manage different stages of recruitment autonomously.',
     techStack: ['Python', 'FastAPI', 'React', 'Agno', 'Groq', 'Llama 3', 'Qdrant', 'Whisper'],
@@ -102,6 +111,8 @@ export const projects: Project[] = [
     ],
     problemStatement: 'The recruitment process is often manual, repetitive, and subject to bias. Scaling hiring while maintaining candidate quality and experience is difficult.',
     architecture: 'Uses a tree-structured agent hierarchy where parent agents delegate tasks. The backend manages the recruitment workflow, integrating vector search for candidates and real-time audio processing for interviews.',
-    githubUrl: 'https://github.com/Manik0107/HierAI',
+    githubUrl: 'https://github.com/Manik0107/HireAI',
+    imageUrl: '/projects/HireAI.png',
+    imagePlaceholder: 'linear-gradient(135deg, #1a0a00 0%, #3d1c02 50%, #7c3a00 100%)',
   },
 ];

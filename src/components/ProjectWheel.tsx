@@ -103,29 +103,46 @@ const WheelCard = ({
                 left: '50%',
                 x: cardOffset - CARD_WIDTH / 2,
             }}
-            className="absolute top-0 h-[500px] perspective-1000 origin-center"
+            className="absolute top-0 h-[520px] perspective-1000 origin-center"
             onClick={handleClick}
         >
             <div className="w-full h-full relative group">
                 <div className="absolute inset-0 bg-card/90 backdrop-blur-xl border border-primary/40 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(45,212,191,0.2)]">
-                    <div className="p-8 h-full flex flex-col relative z-10">
-                        <div className="flex justify-between items-center mb-6">
-                            <div className="flex items-center gap-2 text-primary">
-                                <Box className="w-4 h-4" />
-                                <span className="text-xs font-mono tracking-widest font-bold">
-                                    PRJ.{project.id.toUpperCase().padStart(3, '0')}
-                                </span>
-                            </div>
-                            <div className="p-2 rounded-full border border-white/10 group-hover:bg-accent/20 transition-colors">
-                                <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-accent" />
-                            </div>
-                        </div>
 
-                        <h3 className="text-3xl font-bold text-foreground mb-3 font-mono group-hover:text-accent transition-colors">
+                    {/* Image as absolute background — top 55% of card */}
+                    <div
+                        className="absolute inset-x-0 top-0 h-[55%]"
+                        style={{ background: project.imagePlaceholder || 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
+                    >
+                        {project.imageUrl && (
+                            <img
+                                src={project.imageUrl}
+                                alt={project.title}
+                                className="w-full h-full object-cover object-top opacity-90"
+                            />
+                        )}
+                        {/* Tall gradient: fades image completely before content */}
+                        <div className="absolute inset-x-0 bottom-0 h-[120%] bg-gradient-to-b from-transparent via-card/70 to-card" />
+                    </div>
+
+                    {/* Badges overlaid on image */}
+                    <div className="absolute top-3 left-3 flex items-center gap-2 text-primary bg-background/60 backdrop-blur-sm px-2 py-1 rounded-md border border-primary/30 z-10">
+                        <Box className="w-3 h-3" />
+                        <span className="text-[10px] font-mono tracking-widest font-bold">
+                            PRJ.{project.id.toUpperCase().padStart(3, '0')}
+                        </span>
+                    </div>
+                    <div className="absolute top-3 right-3 p-1.5 rounded-full border border-white/10 bg-background/60 backdrop-blur-sm group-hover:bg-accent/20 transition-colors z-10">
+                        <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-accent" />
+                    </div>
+
+                    {/* Content sits on top — padding-top pushes it past the image fade */}
+                    <div className="relative z-10 flex flex-col h-full pt-[200px] px-6 pb-6">
+                        <h3 className="text-2xl font-bold text-foreground mb-2 font-mono group-hover:text-accent transition-colors">
                             {project.title}
                         </h3>
 
-                        <div className="flex flex-wrap gap-2 mb-6">
+                        <div className="flex flex-wrap gap-2 mb-4">
                             {project.techStack.slice(0, 3).map(tech => (
                                 <span key={tech} className="text-[10px] font-mono px-2 py-1 rounded bg-secondary/80 text-secondary-foreground border border-white/10">
                                     {tech}
@@ -133,7 +150,7 @@ const WheelCard = ({
                             ))}
                         </div>
 
-                        <p className="text-muted-foreground text-sm leading-relaxed font-mono opacity-90 flex-grow">
+                        <p className="text-muted-foreground text-sm leading-relaxed font-mono opacity-90 flex-grow line-clamp-3">
                             {project.description}
                         </p>
 
@@ -145,9 +162,6 @@ const WheelCard = ({
                             <Github className="w-5 h-5 text-muted-foreground hover:text-white transition-colors" />
                         </div>
                     </div>
-
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                    <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-background via-background/60 to-transparent" />
                 </div>
             </div>
         </motion.div>

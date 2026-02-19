@@ -47,8 +47,29 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                     >
                         <div className="glass-card h-full overflow-y-auto">
                             <div className="relative">
-                                {/* Header with gradient */}
-                                <div className={`bg-gradient-to-br ${colorClasses[colorScheme]} p-6 md:p-8 border-b border-border/50`}>
+
+                                {/* Image as absolute-positioned background */}
+                                <div
+                                    className="w-full h-[200px] md:h-[240px] relative overflow-hidden"
+                                    style={{ background: project.imagePlaceholder || 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
+                                >
+                                    {project.imageUrl ? (
+                                        <img
+                                            src={project.imageUrl}
+                                            alt={`${project.title} preview`}
+                                            className="w-full h-full object-cover object-top"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <span className="text-5xl md:text-7xl font-bold font-mono text-white/10 select-none">{project.title}</span>
+                                        </div>
+                                    )}
+                                    {/* Tall gradient — fully fades before header text */}
+                                    <div className="absolute inset-x-0 bottom-0 h-[80%] bg-gradient-to-b from-transparent via-background/60 to-background pointer-events-none" />
+                                </div>
+
+                                {/* Header overlaps the fade zone — no hard boundary */}
+                                <div className={`bg-gradient-to-br ${colorClasses[colorScheme]} -mt-16 relative z-10 p-6 md:p-8 border-b border-border/50`}>
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex-1">
                                             <h2 className="text-3xl md:text-4xl font-bold mb-2">{project.title}</h2>

@@ -51,8 +51,26 @@ export default function ProjectDetail() {
         </div>
       </header>
 
-      <main className="pt-32 pb-20">
-        <div className="section-container">
+      {/* Hero: image fades seamlessly into title below */}
+      <div className="relative">
+        {/* Full-width image pinned to top of main content */}
+        <div
+          className="w-full h-[340px] md:h-[420px] relative overflow-hidden"
+          style={{ background: project.imagePlaceholder || 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
+        >
+          {project.imageUrl && (
+            <img
+              src={project.imageUrl}
+              alt={`${project.title} preview`}
+              className="w-full h-full object-cover object-top"
+            />
+          )}
+          {/* Gradient that bleeds into page background — no hard edge */}
+          <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-b from-transparent via-background/70 to-background pointer-events-none" />
+        </div>
+
+        {/* Title overlaps the fade zone — no partition */}
+        <div className="section-container relative -mt-28 z-10">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12 animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -139,7 +157,7 @@ export default function ProjectDetail() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       <footer className="border-t border-border/50 py-8">
         <div className="section-container text-center text-sm text-muted-foreground">
