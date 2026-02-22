@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Github, ExternalLink, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
+import AnimatedBackground from '@/components/AnimatedBackground';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -29,7 +30,8 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-background neural-grid">
+    <div className="min-h-screen">
+      <AnimatedBackground />
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="section-container">
           <div className="flex items-center justify-between h-16">
@@ -51,26 +53,9 @@ export default function ProjectDetail() {
         </div>
       </header>
 
-      {/* Hero: image fades seamlessly into title below */}
-      <div className="relative">
-        {/* Full-width image pinned to top of main content */}
-        <div
-          className="w-full h-[340px] md:h-[420px] relative overflow-hidden"
-          style={{ background: project.imagePlaceholder || 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
-        >
-          {project.imageUrl && (
-            <img
-              src={project.imageUrl}
-              alt={`${project.title} preview`}
-              className="w-full h-full object-cover object-top"
-            />
-          )}
-          {/* Gradient that bleeds into page background — no hard edge */}
-          <div className="absolute inset-x-0 bottom-0 h-[70%] bg-gradient-to-b from-transparent via-background/70 to-background pointer-events-none" />
-        </div>
-
-        {/* Title overlaps the fade zone — no partition */}
-        <div className="section-container relative -mt-28 z-10">
+      {/* Main Content Area */}
+      <div className="relative pt-28">
+        <div className="section-container relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12 animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">

@@ -1,5 +1,5 @@
-import { ArrowDown, FileText, Github } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowDown, FileText, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface HeroSectionProps {
   onViewProjects: () => void;
@@ -8,8 +8,6 @@ interface HeroSectionProps {
 export default function HeroSection({ onViewProjects }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0 hero-grid pointer-events-none" />
-
       <div className="section-container relative z-10 text-center">
         <div className="space-y-6 animate-fade-in-up">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
@@ -17,8 +15,8 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Engineering production-grade AI systems, agentic workflows,
-            and intelligent automation that solves real problems.
+            Engineering production-grade AI systems, agentic workflows, and
+            intelligent automation that solves real problems.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
@@ -36,11 +34,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
               asChild
               className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-foreground hover:border-primary/50 px-8 py-6 text-lg transition-all"
             >
-              <a
-                href="/resume"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="/resume" target="_blank" rel="noopener noreferrer">
                 <FileText className="mr-2 h-5 w-5" />
                 Resume
               </a>
@@ -59,7 +53,11 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
             </a>
           </div>
         </div>
-      </div>
+      </div>{" "}
+      {/* Elegant Bottom Separator */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[100px] bg-primary/20 blur-[60px] pointer-events-none rounded-full" />
     </section>
   );
 }

@@ -2,7 +2,6 @@ import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import CodingBackground from '@/components/CodingBackground';
 import SectionReveal from '@/components/SectionReveal';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -40,8 +39,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background neural-grid">
-      <CodingBackground />
+    <div className="min-h-screen">
       <AnimatedBackground />
       <Navbar />
 
