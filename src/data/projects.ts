@@ -8,7 +8,8 @@ export interface Project {
   features: string[];
   problemStatement: string;
   architecture: string;
-  githubUrl: string;
+  githubUrl?: string;
+  liveUrl?: string;
   imageUrl?: string;
   imagePlaceholder?: string;
   metrics?: string[];
@@ -51,7 +52,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Keeping documentation in sync with rapidly evolving codebases is a manual, error-prone process that often leads to outdated or missing information.',
     architecture: 'Scans repositories using GithubTools, analyzes code structure with Tree-sitter, and generates documentation and diagrams through an automated pipeline that produces publication-ready PDFs.',
-    githubUrl: 'https://github.com/Manik0107/Git2Doc',
+    liveUrl: 'https://git2doc.vercel.app/',
     imageUrl: '/projects/Git2Doc.png',
     imagePlaceholder: 'linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #1e3a5f 100%)',
   },
@@ -71,7 +72,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'Enterprises face overwhelming, fast-moving market data, while dashboards and SaaS intelligence tools remain passive, slow, and human-dependent. They report past events but fail to verify, reason, or predict outcomes in real time.',
     architecture: 'The system uses a supervisor agent pattern with specialized worker agents for data collection, analysis, and synthesis. A central knowledge graph stores relationships between entities, while vector embeddings enable semantic retrieval.',
-    githubUrl: 'https://github.com/Manik0107/Agentic_Market_Intelligence',
+    liveUrl: 'https://marketkernel.vercel.app/',
     imageUrl: '/projects/Agentic%20Market%20Intelligence.png',
     imagePlaceholder: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%)',
   },
@@ -111,7 +112,7 @@ export const projects: Project[] = [
     ],
     problemStatement: 'The recruitment process is often manual, repetitive, and subject to bias. Scaling hiring while maintaining candidate quality and experience is difficult.',
     architecture: 'Uses a tree-structured agent hierarchy where parent agents delegate tasks. The backend manages the recruitment workflow, integrating vector search for candidates and real-time audio processing for interviews.',
-    githubUrl: 'https://github.com/Manik0107/HireAI',
+    liveUrl: 'https://hireai-dev.vercel.app/',
     imageUrl: '/projects/HireAI.png',
     imagePlaceholder: 'linear-gradient(135deg, #1a0a00 0%, #3d1c02 50%, #7c3a00 100%)',
   },

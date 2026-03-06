@@ -32,6 +32,8 @@ export default function ProjectDetail() {
   return (
     <div className="min-h-screen">
       <AnimatedBackground />
+      {/* Background blur overlay to focus on main content */}
+      <div className="fixed inset-0 bg-background/60 backdrop-blur-2xl pointer-events-none z-0" />
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="section-container">
           <div className="flex items-center justify-between h-16">
@@ -43,12 +45,24 @@ export default function ProjectDetail() {
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm">Back to Projects</span>
             </Link>
-            <Button size="sm" asChild>
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" />
-                View Code
-              </a>
-            </Button>
+            <div className="flex gap-2">
+              {project.githubUrl && (
+                <Button size="sm" asChild>
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    View Code
+                  </a>
+                </Button>
+              )}
+              {project.liveUrl && (
+                <Button size="sm" asChild>
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    View Live
+                  </a>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -57,16 +71,16 @@ export default function ProjectDetail() {
       <div className="relative pt-28">
         <div className="section-container relative z-10">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-12 animate-fade-in-up">
+            <div className="mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-gradient-primary">{project.title}</span>
+                <span className="text-primary">{project.title}</span>
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <p className="text-lg md:text-xl text-muted-foreground font-medium leading-relaxed tracking-wide">
                 {project.longDescription}
               </p>
             </div>
 
-            <div className="mb-12 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <div className="mb-12">
               <h2 className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">
                 Tech Stack
               </h2>
@@ -82,28 +96,28 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            <div className="glass-card p-8 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="glass-card p-8 mb-8">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-gold" />
                 Problem Statement
               </h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 {project.problemStatement}
               </p>
             </div>
 
-            <div className="glass-card p-8 mb-8 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="glass-card p-8 mb-8">
               <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-primary" />
                 Architecture Overview
               </h2>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 {project.architecture}
               </p>
             </div>
 
-            <div className="glass-card p-8 mb-12 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
+            <div className="glass-card p-8 mb-12">
+              <h2 className="text-lg font-semibold mb-6 flex items-center gap-2 text-foreground">
                 <span className="w-2 h-2 rounded-full bg-accent" />
                 Core Features
               </h2>
@@ -111,23 +125,37 @@ export default function ProjectDetail() {
                 {project.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">{feature}</span>
+                    <span className="text-muted-foreground text-base">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary"
-                asChild
-              >
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-5 w-5" />
-                  View on GitHub
-                </a>
-              </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              {project.githubUrl && (
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary"
+                  asChild
+                >
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-5 w-5" />
+                    View on GitHub
+                  </a>
+                </Button>
+              )}
+              {project.liveUrl && (
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary"
+                  asChild
+                >
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-5 w-5" />
+                    View Live
+                  </a>
+                </Button>
+              )}
               <Button
                 size="lg"
                 variant="outline"

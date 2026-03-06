@@ -34,7 +34,7 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+                        className="fixed inset-0 bg-background/80 backdrop-blur-2xl z-40"
                     />
 
                     {/* Modal */}
@@ -72,8 +72,8 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                                 <div className={`bg-gradient-to-br ${colorClasses[colorScheme]} -mt-16 relative z-10 p-6 md:p-8 border-b border-border/50`}>
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex-1">
-                                            <h2 className="text-3xl md:text-4xl font-bold mb-2">{project.title}</h2>
-                                            <p className="text-lg text-muted-foreground">{project.description}</p>
+                                            <h2 className="text-3xl md:text-4xl font-bold mb-2 text-primary">{project.title}</h2>
+                                            <p className="text-base md:text-lg text-muted-foreground font-medium leading-relaxed">{project.description}</p>
                                         </div>
                                         <Button
                                             variant="ghost"
@@ -87,15 +87,28 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
 
                                     {/* Action buttons */}
                                     <div className="flex flex-wrap gap-3">
-                                        <Button
-                                            asChild
-                                            className="bg-primary hover:bg-primary/90 glow-primary"
-                                        >
-                                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                                                <Github className="mr-2 h-4 w-4" />
-                                                View on GitHub
-                                            </a>
-                                        </Button>
+                                        {project.githubUrl && (
+                                            <Button
+                                                asChild
+                                                className="bg-primary hover:bg-primary/90 glow-primary"
+                                            >
+                                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                                    <Github className="mr-2 h-4 w-4" />
+                                                    View on GitHub
+                                                </a>
+                                            </Button>
+                                        )}
+                                        {project.liveUrl && (
+                                            <Button
+                                                asChild
+                                                className="bg-primary hover:bg-primary/90 glow-primary"
+                                            >
+                                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                                    <ExternalLink className="mr-2 h-4 w-4" />
+                                                    View Live
+                                                </a>
+                                            </Button>
+                                        )}
                                     </div>
                                 </div>
 
@@ -103,10 +116,10 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                                 <div className="p-6 md:p-8 space-y-8">
                                     {/* Problem Statement */}
                                     <section>
-                                        <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
+                                        <h3 className={`text-xl font-semibold mb-3 text-primary`}>
                                             Problem Statement
                                         </h3>
-                                        <p className="text-muted-foreground leading-relaxed">
+                                        <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                                             {project.problemStatement}
                                         </p>
                                     </section>
@@ -116,45 +129,42 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                                         <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
                                             Overview
                                         </h3>
-                                        <p className="text-muted-foreground leading-relaxed">
+                                        <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                                             {project.longDescription}
                                         </p>
                                     </section>
 
                                     {/* Key Features */}
                                     <section>
-                                        <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
+                                        <h3 className={`text-xl font-semibold mb-3 text-foreground`}>
                                             Key Features
                                         </h3>
                                         <ul className="space-y-2">
                                             {project.features.map((feature, index) => (
-                                                <motion.li
+                                                <li
                                                     key={index}
-                                                    initial={{ opacity: 0, x: -20 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: index * 0.1 }}
                                                     className="flex items-start gap-3 text-muted-foreground"
                                                 >
                                                     <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${colorScheme === 'primary' ? 'bg-primary' : colorScheme === 'accent' ? 'bg-accent' : 'bg-gold'} flex-shrink-0`} />
                                                     <span>{feature}</span>
-                                                </motion.li>
+                                                </li>
                                             ))}
                                         </ul>
                                     </section>
 
                                     {/* Architecture */}
                                     <section>
-                                        <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
+                                        <h3 className={`text-xl font-semibold mb-3 text-primary`}>
                                             Architecture
                                         </h3>
-                                        <p className="text-muted-foreground leading-relaxed">
+                                        <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                                             {project.architecture}
                                         </p>
                                     </section>
 
                                     {/* Tech Stack */}
                                     <section>
-                                        <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
+                                        <h3 className={`text-xl font-semibold mb-3 text-primary`}>
                                             Tech Stack
                                         </h3>
                                         <div className="flex flex-wrap gap-2">
@@ -172,7 +182,7 @@ export default function ProjectModal({ project, isOpen, onClose, colorScheme }: 
                                     {/* Metrics if available */}
                                     {project.metrics && project.metrics.length > 0 && (
                                         <section>
-                                            <h3 className={`text-xl font-semibold mb-3 ${accentColors[colorScheme]}`}>
+                                            <h3 className={`text-xl font-semibold mb-3 text-primary`}>
                                                 Impact & Metrics
                                             </h3>
                                             <ul className="space-y-2">
