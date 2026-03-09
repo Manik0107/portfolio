@@ -5,6 +5,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Manik's Portfolio</title>
+  <!-- Catch redirects from 404.html -->
+  <script>
+    (function () {
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect !== location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    })();
+  </script>
   <meta name="description"
     content="Manik's Portfolio - Building production-grade AI systems, agentic workflows, and intelligent automation." />
   <meta name="author" content="Manik" />
