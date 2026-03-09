@@ -33,7 +33,7 @@ export const projects: Project[] = [
     problemStatement: 'Digital note-taking often lacks the cognitive benefits of handwriting, while physical notes lack the searchability and connectivity of digital tools.',
     architecture: 'Uses a multi-agent system (Agno) for content analysis and diagram generation. A custom floating layout engine arranges content into page-sized segments, which are then rendered with realistic handwriting synthesis.',
     githubUrl: 'https://github.com/Manik0107/.ink',
-    imageUrl: '/projects/.ink.png',
+    imageUrl: '/projects/ink.png',
     imagePlaceholder: 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)',
   },
   {
