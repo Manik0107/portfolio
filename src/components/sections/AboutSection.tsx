@@ -163,11 +163,7 @@ export default function AboutSection() {
               />
             </div>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I architect and build AI systems that work in the real world.
-              From prototype to production, I focus on creating intelligent solutions
-              that are reliable, scalable, and genuinely useful. My work spans
-              autonomous agents, custom LLM applications, and end-to-end ML pipelines—always
-              with a production mindset.
+              I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans autonomous agents, custom LLM applications, and end to end ML pipelines always with a production mindset.
             </p>
           </div>
         </div>

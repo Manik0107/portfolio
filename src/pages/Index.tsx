@@ -9,7 +9,6 @@ import ExperienceSection from '@/components/sections/ExperienceSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ResumeSection from '@/components/sections/ResumeSection';
-import ContactSection from '@/components/sections/ContactSection';
 
 const Index = () => {
   const location = useLocation();
@@ -62,9 +61,12 @@ const Index = () => {
         <SectionReveal>
           <ResumeSection />
         </SectionReveal>
-        <SectionReveal>
-          <ContactSection />
-        </SectionReveal>
+
+        <footer className="mt-32 border-t border-border/50 pt-8 pb-12">
+          <div className="section-container text-center text-sm text-muted-foreground">
+            <p>© {new Date().getFullYear()} AI Developer. Built with precision.</p>
+          </div>
+        </footer>
       </main>
     </div>
   );

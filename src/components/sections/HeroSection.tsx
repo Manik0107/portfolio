@@ -1,11 +1,21 @@
-import { ArrowDown, FileText, Github } from "lucide-react";
+import { ArrowDown, FileText, Github, Mail, Linkedin, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface HeroSectionProps {
   onViewProjects: () => void;
 }
 
 export default function HeroSection({ onViewProjects }: HeroSectionProps) {
+  const [copied, setCopied] = useState(false);
+  const email = 'manikmanavenddra@gmail.com';
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="section-container relative z-10 text-center">
@@ -42,14 +52,39 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
           </div>
 
           <div className="flex items-center justify-center gap-6 pt-8">
+            <button
+              onClick={copyEmail}
+              className="glass-card p-4 hover-lift group relative"
+              aria-label="Copy Email"
+            >
+              <div className="relative">
+                <Mail
+                  className={`w-6 h-6 text-muted-foreground group-hover:text-foreground transition-all duration-300 ${copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+                />
+                <Check
+                  className={`w-6 h-6 text-accent absolute top-0 left-0 transition-all duration-300 ${copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+                />
+              </div>
+            </button>
+
             <a
               href="https://github.com/Manik0107"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="glass-card p-4 hover-lift group"
               aria-label="GitHub"
             >
-              <Github className="h-6 w-6" />
+              <Github className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/manik-manavenddra/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-card p-4 hover-lift group"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
             </a>
           </div>
         </div>
