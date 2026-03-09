@@ -25,7 +25,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Engineering production-grade AI systems, agentic workflows, and
+            Engineering production grade AI systems, agentic workflows, and
             intelligent automation that solves real problems.
           </p>
 
