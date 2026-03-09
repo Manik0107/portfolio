@@ -9,24 +9,31 @@ const CARD_GAP = 50;
 const ITEM_FULL_WIDTH = CARD_WIDTH + CARD_GAP;
 const CENTER_THRESHOLD = ITEM_FULL_WIDTH * 0.6; // cards within this distance from center are selectable
 
-// Tick Mark Component
+const TICK_SPACING = 20;
+const TICK_COUNT = 150;
+const DIAL_WIDTH = TICK_COUNT * TICK_SPACING;
+
 const Tick = ({ x, index }: { x: MotionValue<number>, index: number }) => {
-    const position = index * 20;
-
-    const opacity = useTransform(x, (latest) => {
-        const dist = Math.abs(position + latest);
-        return Math.max(0.2, 1 - dist / 700);
+    const position = useTransform(x, (latest) => {
+        const centerView = -latest;
+        const baseOffset = index * TICK_SPACING;
+        const diff = centerView - baseOffset;
+        const wrapOffset = Math.round(diff / DIAL_WIDTH) * DIAL_WIDTH;
+        return baseOffset + wrapOffset;
     });
 
-    const height = useTransform(x, (latest) => {
-        const dist = Math.abs(position + latest);
-        return Math.max(4, 30 - dist / 25);
+    const dist = useTransform(x, (latest) => {
+        const centerView = -latest;
+        const baseOffset = index * TICK_SPACING;
+        const diff = centerView - baseOffset;
+        const wrapOffset = Math.round(diff / DIAL_WIDTH) * DIAL_WIDTH;
+        const pos = baseOffset + wrapOffset;
+        return Math.abs(pos + latest);
     });
 
-    const backgroundColor = useTransform(x, (latest) => {
-        const dist = Math.abs(position + latest);
-        return dist < 100 ? 'hsl(174, 72%, 56%)' : 'hsl(217, 91%, 60%)';
-    });
+    const opacity = useTransform(dist, (d) => Math.max(0.2, 1 - d / 700));
+    const height = useTransform(dist, (d) => Math.max(4, 30 - d / 25));
+    const backgroundColor = useTransform(dist, (d) => d < 100 ? 'hsl(174, 72%, 56%)' : 'hsl(217, 91%, 60%)');
 
     return (
         <motion.div
@@ -36,17 +43,15 @@ const Tick = ({ x, index }: { x: MotionValue<number>, index: number }) => {
     );
 };
 
-// Dial Background Component
 const Dial = ({ x }: { x: MotionValue<number> }) => {
-    const tickCount = 200;
     return (
         <div className="absolute inset-x-0 bottom-0 h-40 flex items-center justify-center pointer-events-none overflow-hidden mask-linear-fade">
             <motion.div
                 style={{ x }}
                 className="flex items-center relative"
             >
-                {Array.from({ length: tickCount }).map((_, i) => (
-                    <Tick key={i} index={i - tickCount / 2} x={x} />
+                {Array.from({ length: TICK_COUNT }).map((_, i) => (
+                    <Tick key={i} index={i - TICK_COUNT / 2} x={x} />
                 ))}
             </motion.div>
 
@@ -55,6 +60,8 @@ const Dial = ({ x }: { x: MotionValue<number> }) => {
         </div>
     );
 };
+
+const TOTAL_WIDTH = projects.length * ITEM_FULL_WIDTH;
 
 // Project Card Component
 const WheelCard = ({
@@ -68,29 +75,38 @@ const WheelCard = ({
     x: MotionValue<number>,
     onClick: () => void
 }) => {
-    const cardOffset = index * ITEM_FULL_WIDTH;
+    const actualOffset = useTransform(x, (latest) => {
+        const centerView = -latest;
+        const baseOffset = index * ITEM_FULL_WIDTH;
+        const diff = centerView - baseOffset;
+        const wrapOffset = Math.round(diff / TOTAL_WIDTH) * TOTAL_WIDTH;
+        return baseOffset + wrapOffset;
+    });
 
-    // We use the smoothed x value passed from parent
     const distance = useTransform(x, (latest) => {
-        return Math.abs(latest + cardOffset);
+        return Math.abs(latest + actualOffset.get());
     });
 
     const scale = useTransform(distance, [0, 500], [1.1, 0.65]);
     const opacity = useTransform(distance, [0, 600], [1, 0.4]);
     const rotateY = useTransform(x, (latest) => {
-        const pos = latest + cardOffset;
+        const pos = latest + actualOffset.get();
         // Reduced rotation sensitivity for smoother feel
         return -pos / 20;
     });
     const zIndex = useTransform(distance, (d) => Math.round(1000 - d));
 
+    const cardX = useTransform(actualOffset, (offset) => {
+        return offset - CARD_WIDTH / 2;
+    });
+
     const handleClick = useCallback(() => {
         // Only allow click if card is near center
-        const dist = Math.abs(x.get() + cardOffset);
+        const dist = Math.abs(x.get() + actualOffset.get());
         if (dist < CENTER_THRESHOLD) {
             onClick();
         }
-    }, [x, cardOffset, onClick]);
+    }, [x, actualOffset, onClick]);
 
     return (
         <motion.div
@@ -101,7 +117,7 @@ const WheelCard = ({
                 opacity,
                 rotateY,
                 left: '50%',
-                x: cardOffset - CARD_WIDTH / 2,
+                x: cardX,
             }}
             className="absolute top-0 h-[520px] perspective-1000 origin-center"
             onClick={handleClick}
@@ -190,17 +206,12 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
         mass: 0.5       // Heavier feel (was 0.5)
     });
 
-    const totalWidth = (projects.length - 1) * ITEM_FULL_WIDTH;
-    const leftConstraint = -totalWidth - ITEM_FULL_WIDTH;
-    const rightConstraint = ITEM_FULL_WIDTH;
-
     const navigateBy = (direction: number) => {
         const currentX = x.get();
         const targetX = Math.round(currentX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH + direction * ITEM_FULL_WIDTH;
-        const clampedX = Math.max(leftConstraint, Math.min(rightConstraint, targetX));
 
         // Use smoother animation parameters
-        animate(x, clampedX, {
+        animate(x, targetX, {
             type: 'spring',
             stiffness: 80,  // Slower, more elegant (was 120)
             damping: 25     // No bounce (was 20)
@@ -217,16 +228,12 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
             e.preventDefault();
             const currentX = x.get();
             const newX = currentX - e.deltaX;
-            if (newX > rightConstraint || newX < leftConstraint) {
-                x.set(currentX - e.deltaX * 0.2);
-            } else {
-                x.set(newX);
-            }
+            x.set(newX);
         };
 
         container.addEventListener('wheel', onWheel, { passive: false });
         return () => container.removeEventListener('wheel', onWheel);
-    }, [x, leftConstraint, rightConstraint]);
+    }, [x]);
 
     return (
         <div ref={containerRef} className="w-full relative h-[700px] flex flex-col items-center justify-center overflow-visible touch-none">
@@ -263,7 +270,6 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
                 className="absolute z-20 flex items-center justify-center cursor-grab active:cursor-grabbing w-full h-full bg-transparent"
                 style={{ x }}
                 drag="x"
-                dragConstraints={{ right: ITEM_FULL_WIDTH, left: -totalWidth - ITEM_FULL_WIDTH }}
                 dragElastic={0.05}
                 onDragStart={() => { isDragging.current = true; }}
                 onDragEnd={() => {
