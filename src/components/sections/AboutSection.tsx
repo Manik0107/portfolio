@@ -53,7 +53,7 @@ const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: bool
 
   return (
     <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
-      <span className="text-gradient-primary">{currentText}</span>
+      <span className="text-blue-300">{currentText}</span>
       <span className="animate-pulse text-primary">|</span>
     </h2>
   );
@@ -158,12 +158,17 @@ export default function AboutSection() {
                 text={[
                   "Hi, I'm Manik Manavenddra M",
                   "AI Engineer",
-                  "Building Production-Ready AI Systems"
+                  "Building Production Ready AI Systems"
                 ]}
               />
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans autonomous agents, custom LLM applications, and end to end ML pipelines always with a production mindset.
+            <p className="text-lg text-muted-foreground leading-relaxed text-justify">
+              I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent
+              solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps,
+              Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
+            </p>
+            <p className="text-lg font-semibold leading-relaxed mt-6 text-center">
+              <span className="text-gradient-gold">Ultimately, I'm just a builder who loves making complex tech feel simple for the end user.</span>
             </p>
           </div>
         </div>

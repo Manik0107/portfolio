@@ -64,7 +64,7 @@ const Index = () => {
 
         <footer className="mt-32 border-t border-border/50 pt-8 pb-12">
           <div className="section-container text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} AI Developer. Built with precision.</p>
+            <p>© {new Date().getFullYear()} Manik Manavenddra. Built with precision.</p>
           </div>
         </footer>
       </main>
