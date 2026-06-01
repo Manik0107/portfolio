@@ -25,7 +25,7 @@ const experiences = [
   {
     company: 'Ascentium',
     role: 'AI Developer',
-    period: 'Mar 2026 – Present',
+    period: 'June 2026 – Present',
     description:
       'Designed and deployed enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.',
     highlights: ['Python', 'PyTorch', 'LangChain', 'LlamaIndex', 'OCR', 'Hugging Face', 'FastAPI', 'Docker', 'AWS'],
