@@ -22,6 +22,14 @@ const experiences = [
       'Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.',
     highlights: ['VoIP', 'PBX', 'Speech to Text', 'Kafka', 'TensorFlow', 'PostgreSQL', 'FastAPI', 'Docker'],
   },
+  {
+    company: 'Ascentium',
+    role: 'AI Developer',
+    period: 'Mar 2026 – Present',
+    description:
+      'Designed and deployed enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.',
+    highlights: ['Python', 'PyTorch', 'LangChain', 'LlamaIndex', 'OCR', 'Hugging Face', 'FastAPI', 'Docker', 'AWS'],
+  },
 ];
 
 export default function ExperienceSection() {
