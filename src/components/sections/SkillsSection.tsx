@@ -7,15 +7,27 @@ gsap.registerPlugin(ScrollTrigger);
 const skillCategories = [
   {
     title: 'Languages',
-    skills: ['Python', 'TypeScript', 'FastApi', 'SQL', 'Rust', "GoLang"],
+    skills: ['Python', 'SQL', 'Rust'],
   },
   {
-    title: 'AI / ML',
-    skills: ['LangChain', 'LangGraph', 'OpenAI', 'Hugging Face', 'PyTorch', 'RAG'],
+    title: 'Frameworks',
+    skills: ['PyTorch', 'LangChain', 'Agno', 'FastAPI'],
   },
   {
-    title: 'Infrastructure',
-    skills: ['Docker', 'Kubernetes', 'AWS', 'PostgreSQL', 'Redis', 'Supabase'],
+    title: 'NLP & LLMs',
+    skills: ['Transformers', 'Multimodal LLMs', 'Diffusion Models', 'TTS & STT', 'text2sql'],
+  },
+  {
+    title: 'Databases & Vector Search',
+    skills: ['Qdrant', 'PGVector', 'Redis', 'PostgreSQL'],
+  },
+  {
+    title: 'Model Optimization',
+    skills: ['Quantization', 'QLoRA', 'KV Caching', 'Distillation'],
+  },
+  {
+    title: 'MLOps & Tools',
+    skills: ['Docker', 'ONNX Runtime', 'CI/CD (GitHub Actions)'],
   },
 ];
 
