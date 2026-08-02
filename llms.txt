@@ -1,0 +1,37 @@
+# Manik Manavenddra — AI Developer
+
+> Manik Manavenddra is an AI Developer from India who architects and builds production-grade AI systems, agentic workflows, LLM applications, and intelligent automation. His work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models, Vision Language Models, and end-to-end ML pipelines.
+
+## About
+
+I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
+
+## Key Skills
+
+- Languages: Python, SQL, Rust
+- Frameworks: PyTorch, LangChain, LlamaIndex, Agno, FastAPI
+- NLP & LLMs: Transformers, Multimodal LLMs, Diffusion Models, TTS & STT, text2sql, Retrieval Augmented Generation
+- Databases & Vector Search: Qdrant, PGVector, Redis, PostgreSQL
+- Model Optimization: Quantization, QLoRA, KV Caching, Distillation
+- MLOps & Tools: Docker, ONNX Runtime, CI/CD (GitHub Actions)
+
+## Experience
+
+- Ascentium — AI Developer (June 2026 – Present): Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.
+- PhobosQ — Agentic AI Intern, Call Analytics (Dec 2025 – Mar 2026): Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.
+- RD Technology — Machine Learning Intern (Dec 2024 – Jan 2025): Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.
+
+## Projects
+
+- [.ink](https://manik0107.me/project/ink): Productivity and note-taking system that synthesizes knowledge into handwritten notes.
+- [Git2Doc](https://manik0107.me/project/git2doc): Developer tool for automated documentation generation and architecture visualization.
+- [Agentic Market Intelligence](https://manik0107.me/project/agentic-market-intelligence): Autonomous, production-grade system for proactive market intelligence.
+- [VATA](https://manik0107.me/project/vata): Education-based automation tool that generates explanatory animations from documents.
+- [HireAI](https://manik0107.me/project/hireai): HR recruitment automation system for candidate screening and interviews.
+
+## Contact
+
+- Email: manikmanavenddra@gmail.com
+- GitHub: https://github.com/Manik0107
+- LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
+- Resume: https://manik0107.me/resume

@@ -1,0 +1,107 @@
+# Manik Manavenddra — AI Developer (Full Profile)
+
+> This is the full markdown profile of Manik Manavenddra, an AI Developer from India. It is meant to be a complete machine-readable summary of the portfolio site (https://manik0107.me) for large language models and AI agents.
+
+## About
+
+I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
+
+Ultimately, I am a builder who loves making complex tech feel simple for the end user.
+
+## Key Skills
+
+- Languages: Python, SQL, Rust
+- Frameworks: PyTorch, LangChain, LlamaIndex, Agno, FastAPI
+- NLP & LLMs: Transformers, Multimodal LLMs, Diffusion Models, TTS & STT, text2sql, Retrieval Augmented Generation
+- Databases & Vector Search: Qdrant, PGVector, Redis, PostgreSQL
+- Model Optimization: Quantization, QLoRA, KV Caching, Distillation
+- MLOps & Tools: Docker, ONNX Runtime, CI/CD (GitHub Actions)
+
+## Experience
+
+### Ascentium — AI Developer (June 2026 – Present)
+
+Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.
+
+- Python, PyTorch, LangChain, LlamaIndex, OCR, Hugging Face, FastAPI, Docker, AWS
+
+### PhobosQ — Agentic AI Intern, Call Analytics (Dec 2025 – Mar 2026)
+
+Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.
+
+- VoIP, PBX, Speech to Text, Kafka, TensorFlow, PostgreSQL, FastAPI, Docker
+
+### RD Technology — Machine Learning Intern (Dec 2024 – Jan 2025)
+
+Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.
+
+- Python, TensorFlow, Keras, Scikit-learn, Pandas, NumPy, SQL, FastAPI, Git, Docker
+
+## Projects
+
+### .ink
+
+Productivity and note-taking system that synthesizes knowledge into handwritten notes.
+
+A personal knowledge management system that converts typed documents and videos into realistic handwritten notebooks. It features intelligent layout analysis and semantic linking to synthesize insights from your knowledge base.
+
+- Problem: Digital note-taking often lacks the cognitive benefits of handwriting, while physical notes lack the searchability and connectivity of digital tools.
+- Architecture: Uses a multi-agent system (Agno) for content analysis and diagram generation. A custom floating layout engine arranges content into page-sized segments, which are then rendered with realistic handwriting synthesis.
+- Features: Intelligent Content Analysis, Systemic Diagram Generation, Floating Layout Engine, Realistic Handwriting Synthesis, Cross-note insight synthesis.
+- Tech: React, TypeScript, Supabase, pgvector, TipTap, Agno, Mermaid.js
+- GitHub: https://github.com/Manik0107/.ink
+
+### Git2Doc
+
+Developer tool for automated documentation generation and architecture visualization.
+
+An automated documentation generator that analyzes codebases to create comprehensive technical documentation. It parses source code to understand structure and relationships, generating workflow diagrams and professional PDFs.
+
+- Problem: Keeping documentation in sync with rapidly evolving codebases is a manual, error-prone process that often leads to outdated or missing information.
+- Architecture: Scans repositories using GithubTools, analyzes code structure with Tree-sitter, and generates documentation and diagrams through an automated pipeline that produces publication-ready PDFs.
+- Features: Intelligent Repository Analysis, Automatic Workflow Diagram Generation, Comprehensive Documentation, Professional PDF Output, Multi-language support.
+- Tech: TypeScript, Node.js, GithubTools, Markdown, Agentic AI
+- Live: https://git2doc.vercel.app/
+
+### Agentic Market Intelligence
+
+Autonomous, production-grade system for proactive market intelligence.
+
+An autonomous system that moves beyond passive dashboards to verify, reason, and predict outcomes in real time. It addresses the challenge of overwhelming data by providing actionable proactive intelligence.
+
+- Problem: Enterprises face overwhelming, fast-moving market data, while dashboards and SaaS intelligence tools remain passive, slow, and human-dependent. They report past events but fail to verify, reason, or predict outcomes in real time.
+- Architecture: The system uses a supervisor agent pattern with specialized worker agents for data collection, analysis, and synthesis. A central knowledge graph stores relationships between entities, while vector embeddings enable semantic retrieval.
+- Features: Multi-agent orchestration with specialized roles, Real-time web scraping and data aggregation, Semantic search across collected intelligence, Automated report generation with citations, Slack/Discord integration for alerts.
+- Tech: Python, LangChain, PostgreSQL, Redis, FastAPI, Docker
+- Live: https://marketkernel.vercel.app/
+
+### VATA
+
+Education-based automation tool that generates explanatory animations from documents.
+
+An intelligent system specialized for education that automatically extracts content from PDFs and generates professional animated explanations. It orchestrates code generation and validation to create visual teaching materials.
+
+- Problem: Creating high-quality educational animations is time-consuming and requires specialized coding skills. Converting textbook content into engaging visual explanations is a manual bottleneck.
+- Architecture: A pipeline architecture including extracting content from PDFs, generating educational storyboards, producing voiceovers, and generating Manim code with a multi-layer validation system.
+- Features: Document-Grounded Learning, Automated Storyboarding, Voiceover Narration, Runtime Validation, Error Prevention System.
+- Tech: Python, DSPy, Manim, Agno, FastAPI
+- GitHub: https://github.com/Manik0107/VATA
+
+### HireAI
+
+HR recruitment automation system for candidate screening and interviews.
+
+A full-stack, automated recruitment system that handles the hiring process from resume screening to final interviews. It employs hierarchical agents to manage different stages of recruitment autonomously.
+
+- Problem: The recruitment process is often manual, repetitive, and subject to bias. Scaling hiring while maintaining candidate quality and experience is difficult.
+- Architecture: Uses a tree-structured agent hierarchy where parent agents delegate tasks. The backend manages the recruitment workflow, integrating vector search for candidates and real-time audio processing for interviews.
+- Features: AI Resume Screening, OTP-secured rounds, Interactive Skill Assessments, Real-time Speech-to-Speech Interview, Hierarchical agent delegation.
+- Tech: Python, FastAPI, React, Agno, Groq, Llama 3, Qdrant, Whisper
+- Live: https://hireai-dev.vercel.app/
+
+## Contact
+
+- Email: manikmanavenddra@gmail.com
+- GitHub: https://github.com/Manik0107
+- LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
+- Resume: https://manik0107.me/resume
