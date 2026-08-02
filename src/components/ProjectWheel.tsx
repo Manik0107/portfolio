@@ -1,17 +1,32 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { motion, useTransform, useMotionValue, animate, MotionValue, useSpring } from 'framer-motion';
 import { projects } from '@/data/projects';
 import { ArrowUpRight, Github, Box, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const CARD_WIDTH = 350;
+const DESKTOP_CARD_WIDTH = 350;
 const CARD_GAP = 50;
-const ITEM_FULL_WIDTH = CARD_WIDTH + CARD_GAP;
-const CENTER_THRESHOLD = ITEM_FULL_WIDTH * 0.6; // cards within this distance from center are selectable
+const CENTER_THRESHOLD_RATIO = 0.6; // cards within this distance from center are selectable
 
 const TICK_SPACING = 20;
 const TICK_COUNT = 150;
 const DIAL_WIDTH = TICK_COUNT * TICK_SPACING;
+
+function useCardWidth() {
+  const [cardWidth, setCardWidth] = useState(DESKTOP_CARD_WIDTH);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setCardWidth(Math.min(DESKTOP_CARD_WIDTH, Math.max(260, w - 48)));
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
+  return cardWidth;
+}
 
 const Tick = ({ x, index }: { x: MotionValue<number>, index: number }) => {
     const position = useTransform(x, (latest) => {
@@ -61,25 +76,32 @@ const Dial = ({ x }: { x: MotionValue<number> }) => {
     );
 };
 
-const TOTAL_WIDTH = projects.length * ITEM_FULL_WIDTH;
-
 // Project Card Component
 const WheelCard = ({
     project,
     index,
     x,
+    cardWidth,
+    itemFullWidth,
+    totalWidth,
     onClick
 }: {
     project: typeof projects[0],
     index: number,
     x: MotionValue<number>,
+    cardWidth: number,
+    itemFullWidth: number,
+    totalWidth: number,
     onClick: () => void
 }) => {
+    const scaleFactor = cardWidth / DESKTOP_CARD_WIDTH;
+    const centerThreshold = itemFullWidth * CENTER_THRESHOLD_RATIO;
+
     const actualOffset = useTransform(x, (latest) => {
         const centerView = -latest;
-        const baseOffset = index * ITEM_FULL_WIDTH;
+        const baseOffset = index * itemFullWidth;
         const diff = centerView - baseOffset;
-        const wrapOffset = Math.round(diff / TOTAL_WIDTH) * TOTAL_WIDTH;
+        const wrapOffset = Math.round(diff / totalWidth) * totalWidth;
         return baseOffset + wrapOffset;
     });
 
@@ -87,8 +109,8 @@ const WheelCard = ({
         return Math.abs(latest + actualOffset.get());
     });
 
-    const scale = useTransform(distance, [0, 500], [1.1, 0.65]);
-    const opacity = useTransform(distance, [0, 600], [1, 0.4]);
+    const scale = useTransform(distance, [0, 500 * scaleFactor], [1.1, 0.65]);
+    const opacity = useTransform(distance, [0, 600 * scaleFactor], [1, 0.4]);
     const rotateY = useTransform(x, (latest) => {
         const pos = latest + actualOffset.get();
         // Reduced rotation sensitivity for smoother feel
@@ -97,21 +119,21 @@ const WheelCard = ({
     const zIndex = useTransform(distance, (d) => Math.round(1000 - d));
 
     const cardX = useTransform(actualOffset, (offset) => {
-        return offset - CARD_WIDTH / 2;
+        return offset - cardWidth / 2;
     });
 
     const handleClick = useCallback(() => {
         // Only allow click if card is near center
         const dist = Math.abs(x.get() + actualOffset.get());
-        if (dist < CENTER_THRESHOLD) {
+        if (dist < centerThreshold) {
             onClick();
         }
-    }, [x, actualOffset, onClick]);
+    }, [x, actualOffset, onClick, centerThreshold]);
 
     return (
         <motion.div
             style={{
-                width: CARD_WIDTH,
+                width: cardWidth,
                 zIndex,
                 scale,
                 opacity,
@@ -189,6 +211,10 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 
+    const cardWidth = useCardWidth();
+    const itemFullWidth = cardWidth + CARD_GAP;
+    const totalWidth = projects.length * itemFullWidth;
+
     // Determine initial index based on passed project slug or default to 2
     const initialIndex = initialProject
         ? projects.findIndex(p => p.slug === initialProject)
@@ -197,7 +223,12 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
     // Fallback to 2 if project not found (-1)
     const activeIndex = initialIndex >= 0 ? initialIndex : 2;
 
-    const x = useMotionValue(-activeIndex * ITEM_FULL_WIDTH);
+    const x = useMotionValue(-activeIndex * itemFullWidth);
+
+    // Re-center the active card whenever the card width changes (e.g. on resize)
+    useEffect(() => {
+        x.set(-activeIndex * itemFullWidth);
+    }, [itemFullWidth, activeIndex, x]);
 
     // Smooth spring physics for all movements
     const smoothX = useSpring(x, {
@@ -208,7 +239,7 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
 
     const navigateBy = (direction: number) => {
         const currentX = x.get();
-        const targetX = Math.round(currentX / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH + direction * ITEM_FULL_WIDTH;
+        const targetX = Math.round(currentX / itemFullWidth) * itemFullWidth + direction * itemFullWidth;
 
         // Use smoother animation parameters
         animate(x, targetX, {
@@ -218,25 +249,37 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
         });
     };
 
-    // Horizontal-only trackpad listener
+    // Horizontal-only trackpad listener with snap-to-nearest alignment
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
+        const snapTimeout = { id: null as ReturnType<typeof setTimeout> | null };
+
         const onWheel = (e: WheelEvent) => {
             if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
             e.preventDefault();
-            const currentX = x.get();
-            const newX = currentX - e.deltaX;
-            x.set(newX);
+            x.set(x.get() - e.deltaX);
+            if (snapTimeout.id) clearTimeout(snapTimeout.id);
+            snapTimeout.id = setTimeout(() => {
+                const target = Math.round(x.get() / itemFullWidth) * itemFullWidth;
+                animate(x, target, {
+                    type: 'spring',
+                    stiffness: 80,
+                    damping: 25,
+                });
+            }, 150);
         };
 
         container.addEventListener('wheel', onWheel, { passive: false });
-        return () => container.removeEventListener('wheel', onWheel);
-    }, [x]);
+        return () => {
+            container.removeEventListener('wheel', onWheel);
+            if (snapTimeout.id) clearTimeout(snapTimeout.id);
+        };
+    }, [x, itemFullWidth]);
 
     return (
-        <div ref={containerRef} className="w-full relative h-[700px] flex flex-col items-center justify-center overflow-visible touch-none">
+        <div ref={containerRef} className="w-full relative h-[700px] flex flex-col items-center justify-center overflow-visible touch-pan-y">
 
             {/* Background Dial - uses smoothed X */}
             <div className="absolute inset-0 flex items-center justify-center opacity-80 pointer-events-none">
@@ -246,8 +289,8 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
             {/* Left Button */}
             <button
                 onClick={() => navigateBy(1)}
-                className="absolute z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors 
-                max-md:bottom-8 max-md:left-[calc(50%-50px)]
+                className="absolute z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors 
+                max-md:bottom-10 max-md:left-6
                 md:top-1/2 md:-translate-y-1/2 md:left-[calc(50%-270px)]"
                 aria-label="Previous project"
             >
@@ -257,8 +300,8 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
             {/* Right Button */}
             <button
                 onClick={() => navigateBy(-1)}
-                className="absolute z-30 p-3 rounded-l-xl border border-r-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors
-                max-md:bottom-8 max-md:right-[calc(50%-50px)]
+                className="absolute z-30 p-3 rounded-r-xl border border-l-0 border-primary/30 bg-card/60 backdrop-blur-sm hover:bg-primary/20 hover:border-accent transition-colors
+                max-md:bottom-10 max-md:right-6
                 md:top-1/2 md:-translate-y-1/2 md:right-[calc(50%-270px)]"
                 aria-label="Next project"
             >
@@ -279,7 +322,7 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
                     power: 0.1,       // Very low friction (was 0.3)
                     timeConstant: 500, // Long slide (was 250)
                     modifyTarget: (target) => {
-                        return Math.round(target / ITEM_FULL_WIDTH) * ITEM_FULL_WIDTH;
+                        return Math.round(target / itemFullWidth) * itemFullWidth;
                     }
                 }}
             >
@@ -289,6 +332,9 @@ export default function ProjectWheel({ initialProject }: { initialProject?: stri
                         project={project}
                         index={i}
                         x={smoothX} // Pass smoothed X to cards
+                        cardWidth={cardWidth}
+                        itemFullWidth={itemFullWidth}
+                        totalWidth={totalWidth}
                         onClick={() => {
                             if (!isDragging.current) {
                                 navigate(`/project/${project.slug}`);

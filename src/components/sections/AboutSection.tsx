@@ -52,10 +52,10 @@ const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: bool
   }, [currentIndex, isDeleting, text, textIndex, hasStarted]);
 
   return (
-    <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
+    <span>
       <span className="text-blue-300">{currentText}</span>
       <span className="animate-pulse text-primary">|</span>
-    </h2>
+    </span>
   );
 };
 
@@ -115,7 +115,7 @@ export default function AboutSection() {
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <motion.div
-              className="w-72 h-96 md:w-80 md:h-[28rem] rounded-2xl border-4 border-primary/30 bg-secondary/50 overflow-hidden group relative hover:border-primary/50 transition-all duration-300 shadow-2xl hover:shadow-primary/20"
+              className="w-56 h-72 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] rounded-2xl border-4 border-primary/30 bg-secondary/50 overflow-hidden group relative hover:border-primary/50 transition-all duration-300 shadow-2xl hover:shadow-primary/20"
               animate={{
                 y: [0, -10, 0],
               }}
@@ -152,15 +152,20 @@ export default function AboutSection() {
           </motion.div>
 
           <div className="text-center lg:text-left flex-1">
-            <div className="mb-6 h-[40px] flex items-center justify-center">
-              <TypingEffect
-                startTyping={isInView}
-                text={[
-                  "Hi, I'm Manik Manavenddra M",
-                  "AI Engineer",
-                  "Building Production Ready AI Systems"
-                ]}
-              />
+            <div className="mb-6">
+              <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
+                <span className="sr-only">
+                  Hi, I'm Manik Manavenddra M — AI Engineer. Building production ready AI systems.
+                </span>
+                <TypingEffect
+                  startTyping={isInView}
+                  text={[
+                    "Hi, I'm Manik Manavenddra M",
+                    "AI Engineer",
+                    "Building Production Ready AI Systems"
+                  ]}
+                />
+              </h2>
             </div>
             <p className="text-lg text-muted-foreground leading-relaxed text-justify">
               I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent

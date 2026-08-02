@@ -7,12 +7,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 const experiences = [
   {
-    company: 'RD Technology',
-    role: 'Machine Learning Intern',
-    period: 'Dec 2024 – Jan 2025',
+    company: 'Ascentium',
+    role: 'AI Developer',
+    period: 'June 2026 – Present',
     description:
-      'Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.',
-    highlights: ['Python', 'TensorFlow', 'Keras', 'Scikit-learn', 'Pandas', 'NumPy', 'SQL', 'FastAPI', 'Git', 'Docker'],
+      'Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.',
+    highlights: ['Python', 'PyTorch', 'LangChain', 'LlamaIndex', 'OCR', 'Hugging Face', 'FastAPI', 'Docker', 'Azure'],
   },
   {
     company: 'PhobosQ',
@@ -23,12 +23,12 @@ const experiences = [
     highlights: ['VoIP', 'PBX', 'Speech to Text', 'Kafka', 'TensorFlow', 'PostgreSQL', 'FastAPI', 'Docker'],
   },
   {
-    company: 'Ascentium',
-    role: 'AI Developer',
-    period: 'June 2026 – Present',
+    company: 'RD Technology',
+    role: 'Machine Learning Intern',
+    period: 'Dec 2024 – Jan 2025',
     description:
-      'Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.',
-    highlights: ['Python', 'PyTorch', 'LangChain', 'LlamaIndex', 'OCR', 'Hugging Face', 'FastAPI', 'Docker', 'AWS'],
+      'Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.',
+    highlights: ['Python', 'TensorFlow', 'Keras', 'Scikit-learn', 'Pandas', 'NumPy', 'SQL', 'FastAPI', 'Git', 'Docker'],
   },
 ];
 

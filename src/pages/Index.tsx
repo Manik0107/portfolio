@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSeo } from '@/hooks/use-seo';
+import { SITE_URL, HOME_DESCRIPTION, personJsonLd, webSiteJsonLd } from '@/lib/seo';
 import Navbar from '@/components/Navbar';
 import AnimatedBackground from '@/components/AnimatedBackground';
 import SectionReveal from '@/components/SectionReveal';
@@ -12,6 +14,14 @@ import ResumeSection from '@/components/sections/ResumeSection';
 
 const Index = () => {
   const location = useLocation();
+
+  useSeo({
+    title: 'Manik Manavenddra | AI Developer Portfolio',
+    description: HOME_DESCRIPTION,
+    canonical: `${SITE_URL}/`,
+    image: `${SITE_URL}/Manik.jpeg`,
+    jsonLd: [personJsonLd(), webSiteJsonLd()],
+  });
 
   useEffect(() => {
     if (location.state?.target === 'projects') {

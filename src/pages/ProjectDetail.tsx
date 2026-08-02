@@ -4,10 +4,33 @@ import { ArrowLeft, Github, ExternalLink, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import { useSeo } from '@/hooks/use-seo';
+import {
+  absoluteImage,
+  breadcrumbJsonLd,
+  pageUrl,
+  softwareSourceCodeJsonLd,
+} from '@/lib/seo';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const project = projects.find((p) => p.slug === slug);
+
+  useSeo({
+    title: project
+      ? `${project.title} | Manik Manavenddra`
+      : 'Project Not Found | Manik Manavenddra',
+    description: project
+      ? project.longDescription
+      : 'This project could not be found on Manik Manavenddra\'s portfolio.',
+    canonical: pageUrl(project ? `/project/${project.slug}` : '/'),
+    image: project?.imageUrl ? absoluteImage(project.imageUrl) : undefined,
+    type: 'article',
+    noindex: !project,
+    jsonLd: project
+      ? [softwareSourceCodeJsonLd(project), breadcrumbJsonLd(project.slug, project.title)]
+      : [],
+  });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -36,14 +59,14 @@ export default function ProjectDetail() {
       <div className="fixed inset-0 bg-background/60 backdrop-blur-2xl pointer-events-none z-0" />
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="section-container">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex flex-wrap items-center justify-between gap-2 py-3">
             <Link
               to="/"
               state={{ target: 'projects', previousProject: project.slug }}
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm">Back to Projects</span>
+              <span className="hidden sm:inline text-sm">Back to Projects</span>
             </Link>
             <div className="flex gap-2">
               {project.githubUrl && (
@@ -68,11 +91,11 @@ export default function ProjectDetail() {
       </header>
 
       {/* Main Content Area */}
-      <div className="relative pt-28">
+      <div className="relative pt-32 sm:pt-28">
         <div className="section-container relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
                 <span className="text-primary">{project.title}</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground font-medium leading-relaxed tracking-wide">

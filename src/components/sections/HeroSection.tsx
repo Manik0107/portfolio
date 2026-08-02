@@ -20,7 +20,7 @@ export default function HeroSection({ onViewProjects }: HeroSectionProps) {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="section-container relative z-10 text-center">
         <div className="space-y-6 animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
             <span className="text-gradient-primary">AI Developer</span>
           </h1>
 

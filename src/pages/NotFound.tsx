@@ -1,8 +1,17 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
+import { SITE_URL } from "@/lib/seo";
 
 const NotFound = () => {
   const location = useLocation();
+
+  useSeo({
+    title: "Page Not Found | Manik Manavenddra",
+    description: "The page you are looking for does not exist on Manik Manavenddra's portfolio.",
+    canonical: `${SITE_URL}/`,
+    noindex: true,
+  });
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
