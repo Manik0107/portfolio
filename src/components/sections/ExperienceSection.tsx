@@ -1,106 +1,69 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Briefcase } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import SectionHeading from '@/components/SectionHeading';
 
 const experiences = [
   {
     company: 'Ascentium',
     role: 'AI Developer',
-    period: 'June 2026 – Present',
+    period: 'Jun 2026 — Present',
+    current: true,
     description:
-      'Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.',
+      'Building enterprise AI for document processing, classification and semantic analysis, from architecture through deployment.',
     highlights: ['Python', 'PyTorch', 'LangChain', 'LlamaIndex', 'OCR', 'Hugging Face', 'FastAPI', 'Docker', 'Azure'],
   },
   {
     company: 'PhobosQ',
-    role: 'Agentic AI Intern (Call Analytics)',
-    period: 'Dec 2025 – Mar 2026',
+    role: 'Agentic AI Intern, Call Analytics',
+    period: 'Dec 2025 — Mar 2026',
+    current: false,
     description:
-      'Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.',
+      'Built real-time call analytics across 12+ Indic languages, combining stream processing, speech recognition and NLP.',
     highlights: ['VoIP', 'PBX', 'Speech to Text', 'Kafka', 'TensorFlow', 'PostgreSQL', 'FastAPI', 'Docker'],
   },
   {
     company: 'RD Technology',
     role: 'Machine Learning Intern',
-    period: 'Dec 2024 – Jan 2025',
+    period: 'Dec 2024 — Jan 2025',
+    current: false,
     description:
-      'Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.',
+      'Trained and optimized classification and regression models, then shipped them as FastAPI services.',
     highlights: ['Python', 'TensorFlow', 'Keras', 'Scikit-learn', 'Pandas', 'NumPy', 'SQL', 'FastAPI', 'Git', 'Docker'],
   },
 ];
 
 export default function ExperienceSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.timeline-item', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 70%',
-        },
-        y: 50,
-        opacity: 0,
-        scale: 0.95,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: 'back.out(1.7)',
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="experience" className="py-16 relative">
+    <section id="experience" className="relative py-24 sm:py-32">
       <div className="section-container">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          <span className="text-gradient-primary">Experience</span>
-        </h2>
+        <SectionHeading
+          title="Where I've worked."
+          description="Production AI work across startup and enterprise teams."
+        />
 
-        <div className="relative max-w-5xl mx-auto">
-          {/* Center vertical line */}
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-primary/30" />
+        <div className="border-t border-white/10">
+          {experiences.map((exp) => (
+            <div
+              key={exp.company}
+              className="group grid grid-cols-1 gap-4 border-b border-white/10 py-8 transition-colors duration-300 hover:bg-white/[0.015] md:grid-cols-12 md:gap-8 md:py-10"
+            >
+              <div className="md:col-span-3">
+                <div className="font-mono text-xs text-muted-foreground">{exp.period}</div>
+                {exp.current && <div className="mt-1 text-xs text-primary">Current</div>}
+              </div>
 
-          <div className="space-y-12">
-            {experiences.map((exp, i) => {
-              const isLeft = i % 2 === 0;
-              const card = (
-                <div className="glass-card p-6 hover-lift">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Briefcase className="w-5 h-5 text-primary flex-shrink-0" />
-                    <h3 className="text-lg font-semibold">{exp.company}</h3>
-                  </div>
-                  <p className="text-sm text-accent font-medium mb-1">{exp.role}</p>
-                  <p className="text-xs text-muted-foreground mb-3">{exp.period}</p>
-                  <p className="text-sm text-muted-foreground mb-4 text-justify">{exp.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.highlights.map((tag) => (
-                      <span key={tag} className="tech-tag">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              );
-              return (
-                <div key={i} className="timeline-item relative flex flex-col md:flex-row md:items-center gap-4 md:gap-0">
-                  {/* Left slot */}
-                  <div className="w-full md:w-[calc(50%-1.5rem)] md:pr-8">
-                    {isLeft && card}
-                  </div>
-
-                  {/* Center dot */}
-                  <div className="hidden md:block w-4 h-4 rounded-full bg-primary border-2 border-background glow-primary flex-shrink-0 mx-auto z-10" />
-
-                  {/* Right slot */}
-                  <div className="w-full md:w-[calc(50%-1.5rem)] md:pl-8">
-                    {!isLeft && card}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+              <div className="md:col-span-9">
+                <h3 className="text-2xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-primary sm:text-3xl">
+                  {exp.company}
+                </h3>
+                <p className="mt-1 text-sm font-medium text-accent">{exp.role}</p>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {exp.description}
+                </p>
+                <p className="mt-4 font-mono text-[0.7rem] leading-relaxed text-muted-foreground">
+                  {exp.highlights.join(', ')}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

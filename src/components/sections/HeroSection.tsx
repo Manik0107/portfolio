@@ -1,98 +1,115 @@
-import { ArrowDown, FileText, Github, Mail, Linkedin, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState } from 'react';
+import { motion, type Variants } from 'framer-motion';
 
 interface HeroSectionProps {
   onViewProjects: () => void;
 }
+
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
 
 export default function HeroSection({ onViewProjects }: HeroSectionProps) {
   const [copied, setCopied] = useState(false);
   const email = 'manikmanavenddra@gmail.com';
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${email}`;
+    }
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="section-container relative z-10 text-center">
-        <div className="space-y-6 animate-fade-in-up">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-            <span className="text-gradient-primary">AI Developer</span>
-          </h1>
+    <section className="relative flex min-h-screen items-center overflow-hidden pb-20 pt-32 sm:pt-36">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/75 to-transparent md:from-background/90 md:via-background/30 md:to-transparent" />
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Engineering production grade AI systems, agentic workflows, and
-            intelligent automation that solves real problems.
-          </p>
+      <div className="section-container relative z-10">
+        <motion.div variants={container} initial="hidden" animate="show" className="max-w-5xl">
+          <motion.h1
+            variants={item}
+            className="text-[clamp(2.25rem,9vw,7rem)] font-semibold leading-[0.88] tracking-[-0.045em]"
+          >
+            Manik
+            <br />
+            Manavenddra M.
+          </motion.h1>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-            <Button
-              size="lg"
-              onClick={onViewProjects}
-              className="group bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg glow-primary"
-            >
-              View Projects
-              <ArrowDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="border-border/50 bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-foreground hover:border-primary/50 px-8 py-6 text-lg transition-all"
-            >
-              <a href="/resume" target="_blank" rel="noopener noreferrer">
-                <FileText className="mr-2 h-5 w-5" />
-                Resume
-              </a>
-            </Button>
-          </div>
+          <motion.p
+            variants={item}
+            className="mt-5 text-sm font-medium text-foreground"
+          >
+            AI Engineer · India
+          </motion.p>
 
-          <div className="flex items-center justify-center gap-6 pt-8">
+          <motion.p
+            variants={item}
+            className="mt-4 max-w-2xl font-display text-2xl leading-snug text-foreground/85 sm:text-3xl"
+          >
+            AI systems that hold up in production.
+          </motion.p>
+
+          <motion.p
+            variants={item}
+            className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
+            I design and ship autonomous agents, LLM applications and automation
+            for teams that need working systems, not demos.
+          </motion.p>
+
+          <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
             <button
-              onClick={copyEmail}
-              className="glass-card p-4 hover-lift group relative"
-              aria-label="Copy Email"
+              onClick={onViewProjects}
+              className="rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              <div className="relative">
-                <Mail
-                  className={`w-6 h-6 text-muted-foreground group-hover:text-foreground transition-all duration-300 ${copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
-                />
-                <Check
-                  className={`w-6 h-6 text-accent absolute top-0 left-0 transition-all duration-300 ${copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
-                />
-              </div>
+              View selected work
             </button>
+            <a
+              href="/resume"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg border border-white/12 px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+            >
+              View résumé
+            </a>
+          </motion.div>
 
+          <motion.div
+            variants={item}
+            className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground"
+          >
             <a
               href="https://github.com/Manik0107"
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card p-4 hover-lift group"
-              aria-label="GitHub"
+              className="transition-colors hover:text-foreground"
             >
-              <Github className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
+              GitHub
             </a>
-
             <a
               href="https://www.linkedin.com/in/manik-manavenddra/"
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card p-4 hover-lift group"
-              aria-label="LinkedIn"
+              className="transition-colors hover:text-foreground"
             >
-              <Linkedin className="w-6 h-6 text-muted-foreground group-hover:text-foreground transition-colors" />
+              LinkedIn
             </a>
-          </div>
-        </div>
-      </div>{" "}
-      {/* Elegant Bottom Separator */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 max-w-3xl h-[100px] bg-primary/20 blur-[60px] pointer-events-none rounded-full" />
+            <button onClick={copyEmail} className="transition-colors hover:text-foreground">
+              {copied ? 'Email copied' : 'Copy email'}
+            </button>
+            <span className="text-muted-foreground/60">{email}</span>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

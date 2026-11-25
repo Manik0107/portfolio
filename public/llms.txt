@@ -1,10 +1,20 @@
-# Manik Manavenddra — AI Developer
+# Manik Manavenddra — AI Engineer
 
-> Manik Manavenddra is an AI Developer from India who architects and builds production-grade AI systems, agentic workflows, LLM applications, and intelligent automation. His work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models, Vision Language Models, and end-to-end ML pipelines.
+> Manik Manavenddra (also known as Manik and Manik0107) is an AI engineer based in India. He builds production AI systems: autonomous agents, LLM applications, retrieval pipelines and intelligent automation. His work spans generative and agentic AI, RAG, custom LLMs, vision-language models and MLOps.
+
+## Identity
+
+- Full name: Manik Manavenddra M
+- Also known as: Manik, Manik Manavenddra, Manik0107
+- Role: AI Engineer
+- Location: India
+- Website: https://manik0107.me
+- GitHub: https://github.com/Manik0107
+- LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
 
 ## About
 
-I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
+I'm an AI engineer focused on the distance between a working prototype and a dependable product. My work spans multi-agent architectures, retrieval pipelines, fine-tuned models and the deployment work that makes them usable. I work across generative and agentic AI, retrieval-augmented generation, custom LLMs and vision-language applications, with the MLOps needed to keep them observable and reliable.
 
 ## Key Skills
 
@@ -17,16 +27,16 @@ I architect and build AI systems that work in the real world. From prototype to 
 
 ## Experience
 
-- Ascentium — AI Developer (June 2026 – Present): Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.
-- PhobosQ — Agentic AI Intern, Call Analytics (Dec 2025 – Mar 2026): Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.
-- RD Technology — Machine Learning Intern (Dec 2024 – Jan 2025): Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.
+- Ascentium — AI Developer (June 2026 – Present): Building enterprise AI for document processing, classification and semantic analysis, from architecture through deployment.
+- PhobosQ — Agentic AI Intern, Call Analytics (Dec 2025 – Mar 2026): Built real-time call analytics across 12+ Indic languages, combining stream processing, speech recognition and NLP.
+- RD Technology — Machine Learning Intern (Dec 2024 – Jan 2025): Trained and optimized classification and regression models, then shipped them as FastAPI services.
 
 ## Projects
 
 - [.ink](https://manik0107.me/project/ink): Productivity and note-taking system that synthesizes knowledge into handwritten notes.
 - [Git2Doc](https://manik0107.me/project/git2doc): Developer tool for automated documentation generation and architecture visualization.
 - [Agentic Market Intelligence](https://manik0107.me/project/agentic-market-intelligence): Autonomous, production-grade system for proactive market intelligence.
-- [VATA](https://manik0107.me/project/vata): Education-based automation tool that generates explanatory animations from documents.
+- [VATA](https://manik0107.me/project/vata): Education tool that generates explanatory animations from documents.
 - [HireAI](https://manik0107.me/project/hireai): HR recruitment automation system for candidate screening and interviews.
 
 ## Contact
@@ -35,3 +45,7 @@ I architect and build AI systems that work in the real world. From prototype to 
 - GitHub: https://github.com/Manik0107
 - LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
 - Resume: https://manik0107.me/resume
+
+## Hiring
+
+Open to AI engineering roles and selected consulting work. Compensation is discussed based on role, scope and location.

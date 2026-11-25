@@ -1,26 +1,27 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSeo } from '@/hooks/use-seo';
-import { SITE_URL, HOME_DESCRIPTION, personJsonLd, webSiteJsonLd } from '@/lib/seo';
+import { SITE_URL, HOME_DESCRIPTION, personJsonLd, profilePageJsonLd, webSiteJsonLd } from '@/lib/seo';
 import Navbar from '@/components/Navbar';
 import AnimatedBackground from '@/components/AnimatedBackground';
-import SectionReveal from '@/components/SectionReveal';
+import DeferredScene from '@/components/DeferredScene';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ResumeSection from '@/components/sections/ResumeSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
   const location = useLocation();
 
   useSeo({
-    title: 'Manik Manavenddra | AI Developer Portfolio',
+    title: 'Manik Manavenddra — AI Engineer | Manik0107',
     description: HOME_DESCRIPTION,
     canonical: `${SITE_URL}/`,
     image: `${SITE_URL}/Manik.jpeg`,
-    jsonLd: [personJsonLd(), webSiteJsonLd()],
+    jsonLd: [personJsonLd(), profilePageJsonLd(), webSiteJsonLd()],
   });
 
   useEffect(() => {
@@ -41,42 +42,24 @@ const Index = () => {
     }
   }, [location]);
 
-  const projectsRef = useRef<HTMLDivElement>(null);
-
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen">
       <AnimatedBackground />
+      <DeferredScene />
       <Navbar />
 
-      <main>
+      <main className="relative z-10">
         <HeroSection onViewProjects={scrollToProjects} />
-        <SectionReveal>
-          <AboutSection />
-        </SectionReveal>
-        <SectionReveal>
-          <ExperienceSection />
-        </SectionReveal>
-        <SectionReveal>
-          <div ref={projectsRef}>
-            <ProjectsSection initialProject={location.state?.previousProject} />
-          </div>
-        </SectionReveal>
-        <SectionReveal>
-          <SkillsSection />
-        </SectionReveal>
-        <SectionReveal>
-          <ResumeSection />
-        </SectionReveal>
-
-        <footer className="mt-32 border-t border-border/50 pt-8 pb-12">
-          <div className="section-container text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} Manik Manavenddra. Built with precision.</p>
-          </div>
-        </footer>
+        <AboutSection />
+        <ExperienceSection />
+        <ProjectsSection initialProject={location.state?.previousProject} />
+        <SkillsSection />
+        <ResumeSection />
+        <Footer />
       </main>
     </div>
   );

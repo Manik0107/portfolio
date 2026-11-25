@@ -80,7 +80,7 @@ export const projects: Project[] = [
     id: '3',
     slug: 'vata',
     title: 'VATA',
-    description: 'Education-based automation tool that generates Explanatory animations from documents.',
+    description: 'Education tool that generates explanatory animations from documents.',
     longDescription: 'An intelligent system specialized for education that automatically extracts content from PDFs and generates professional animated explanations. It orchestrates code generation and validation to create visual teaching materials.',
     techStack: ['Python', 'DSPy', 'Manim', 'Agno', 'FastAPI'],
     features: [

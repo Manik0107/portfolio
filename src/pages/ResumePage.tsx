@@ -3,8 +3,8 @@ import { SITE_URL } from '@/lib/seo';
 
 export default function ResumePage() {
     useSeo({
-        title: 'Resume | Manik Manavenddra',
-        description: 'Resume of Manik Manavenddra - AI Developer specializing in production-grade AI systems, agentic workflows, and intelligent automation.',
+        title: 'Résumé | Manik Manavenddra — AI Engineer',
+        description: 'Résumé of Manik Manavendra (Manik0107), an AI engineer building production AI systems, agentic workflows and LLM applications.',
         canonical: `${SITE_URL}/resume`,
         image: `${SITE_URL}/Manik.jpeg`,
     });

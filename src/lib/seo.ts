@@ -7,7 +7,7 @@ export const GITHUB_URL = 'https://github.com/Manik0107';
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/manik-manavenddra/';
 
 export const HOME_DESCRIPTION =
-  'Manik Manavenddra - AI Developer specializing in production-grade AI systems, agentic workflows, LLM applications, and intelligent automation. Portfolio of Manik, an AI engineer from India.';
+  'Manik Manavenddra (Manik0107) is an AI engineer in India building production AI systems: autonomous agents, LLM applications, retrieval pipelines and intelligent automation.';
 
 export const pageUrl = (path = '/') => new URL(path, SITE_URL).toString();
 
@@ -25,11 +25,15 @@ export function personJsonLd() {
     '@type': 'Person',
     '@id': `${SITE_URL}/#person`,
     name: AUTHOR,
-    alternateName: ['Manik', 'manik0107'],
+    givenName: 'Manik',
+    familyName: 'Manavenddra',
+    additionalName: 'M',
+    alternateName: ['Manik', 'Manik Manavenddra M', 'Manik0107', 'manik0107'],
     url: SITE_URL,
+    mainEntityOfPage: SITE_URL,
     image: `${SITE_URL}/Manik.jpeg`,
     email: AUTHOR_EMAIL,
-    jobTitle: 'AI Developer',
+    jobTitle: 'AI Engineer',
     description: HOME_DESCRIPTION,
     address: {
       '@type': 'PostalAddress',
@@ -63,13 +67,29 @@ export function personJsonLd() {
   };
 }
 
+export function profilePageJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': `${SITE_URL}/#profile`,
+    url: SITE_URL,
+    name: 'Manik Manavenddra — AI Engineer',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    mainEntity: { '@id': `${SITE_URL}/#person` },
+    about: { '@id': `${SITE_URL}/#person` },
+  };
+}
+
 export function webSiteJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'Manik Manavenddra | AI Developer Portfolio',
+    '@id': `${SITE_URL}/#website`,
+    name: 'Manik Manavenddra — AI Engineer',
+    alternateName: ['Manik Manavenddra Portfolio', 'Manik0107'],
     url: SITE_URL,
     author: { '@id': `${SITE_URL}/#person` },
+    publisher: { '@id': `${SITE_URL}/#person` },
   };
 }
 

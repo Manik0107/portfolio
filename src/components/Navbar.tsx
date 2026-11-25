@@ -1,62 +1,112 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 const navLinks = [
   { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Work' },
   { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, y / max) : 0);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 flex justify-center py-6">
-      <div
-        className="bg-background/10 backdrop-blur-md border border-white/10 shadow-lg rounded-full px-6 flex items-center h-14"
-      >
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        open
+          ? 'border-b border-white/10 bg-background'
+          : scrolled
+            ? 'border-b border-white/10 bg-background/85 backdrop-blur-md'
+            : 'border-b border-transparent'
+      }`}
+    >
+      <nav className="section-container flex h-16 items-center justify-between">
+        <Link to="/" className="flex items-baseline gap-3" onClick={() => setOpen(false)}>
+          <span className="text-base font-semibold tracking-tight">Manik</span>
+          <span className="hidden text-xs text-muted-foreground sm:inline">AI Engineer</span>
+        </Link>
+
+        <div className="hidden items-center gap-7 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors link-underline"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               {link.label}
             </a>
           ))}
+          <Link
+            to="/resume"
+            className="rounded-lg border border-white/12 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+          >
+            Résumé
+          </Link>
         </div>
 
-        {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden p-2 text-muted-foreground hover:text-foreground"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
+          className="-mr-2 p-2 text-muted-foreground transition-colors hover:text-foreground md:hidden"
+          onClick={() => setOpen((value) => !value)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full md:hidden bg-background/95 backdrop-blur-xl border border-white/10 shadow-lg mt-2 py-4 rounded-2xl">
-          <div className="flex flex-col items-center space-y-4">
+      {open && (
+        <div className="fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-white/10 bg-background md:hidden">
+          <div className="section-container flex flex-col py-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => setOpen(false)}
+                className="border-b border-white/[0.06] py-3 text-base text-muted-foreground transition-colors last:border-b-0 hover:text-foreground"
               >
                 {link.label}
               </a>
             ))}
+            <Link
+              to="/resume"
+              onClick={() => setOpen(false)}
+              className="mt-3 rounded-lg bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground"
+            >
+              View résumé
+            </Link>
           </div>
         </div>
       )}
-    </nav>
+
+      {!open && (
+        <div className={`h-px w-full ${scrolled ? 'bg-white/[0.06]' : 'bg-transparent'}`}>
+          <div className="h-px bg-primary" style={{ width: `${progress * 100}%` }} />
+        </div>
+      )}
+    </header>
   );
 }

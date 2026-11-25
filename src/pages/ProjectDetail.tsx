@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Github, ExternalLink, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { projects } from '@/data/projects';
 import AnimatedBackground from '@/components/AnimatedBackground';
+import DeferredScene from '@/components/DeferredScene';
 import { useSeo } from '@/hooks/use-seo';
 import {
   absoluteImage,
@@ -38,166 +37,172 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
-          <Button asChild>
-            <Link to="/" state={{ target: 'projects' }}>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Projects
+      <div className="relative min-h-screen">
+        <AnimatedBackground />
+        <div className="relative z-10 flex min-h-screen items-center justify-center px-6">
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground">404</p>
+            <h1 className="mt-3 text-3xl font-semibold">Project not found</h1>
+            <Link
+              to="/"
+              state={{ target: 'projects' }}
+              className="mt-6 inline-block rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground"
+            >
+              Back to projects
             </Link>
-          </Button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen">
       <AnimatedBackground />
-      {/* Background blur overlay to focus on main content */}
-      <div className="fixed inset-0 bg-background/60 backdrop-blur-2xl pointer-events-none z-0" />
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
-        <div className="section-container">
-          <div className="flex flex-wrap items-center justify-between gap-2 py-3">
-            <Link
-              to="/"
-              state={{ target: 'projects', previousProject: project.slug }}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline text-sm">Back to Projects</span>
-            </Link>
-            <div className="flex gap-2">
-              {project.githubUrl && (
-                <Button size="sm" asChild>
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="mr-2 h-4 w-4" />
-                    View Code
-                  </a>
-                </Button>
-              )}
-              {project.liveUrl && (
-                <Button size="sm" asChild>
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    View Live
-                  </a>
-                </Button>
-              )}
-            </div>
+      <DeferredScene />
+
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-background/80 backdrop-blur-md">
+        <div className="section-container flex h-16 items-center justify-between">
+          <Link
+            to="/"
+            state={{ target: 'projects', previousProject: project.slug }}
+            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Back to projects
+          </Link>
+          <div className="flex items-center gap-5 text-sm">
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Code
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Live
+              </a>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="relative pt-32 sm:pt-28">
-        <div className="section-container relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-12">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-primary">{project.title}</span>
-              </h1>
-              <p className="text-lg md:text-xl text-muted-foreground font-medium leading-relaxed tracking-wide">
-                {project.longDescription}
-              </p>
+      <main className="relative z-10 pb-24 pt-28 sm:pt-32">
+        <div className="section-container">
+          <div className="mx-auto max-w-5xl">
+            <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]">
+              {project.title}
+            </h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              {project.longDescription}
+            </p>
+
+            <p className="mt-6 font-mono text-xs leading-relaxed text-muted-foreground">
+              {project.techStack.join(', ')}
+            </p>
+
+            <div
+              className="relative mt-12 overflow-hidden rounded-2xl border border-white/10"
+              style={{ background: project.imagePlaceholder || 'linear-gradient(135deg, #1a1a2e, #16213e)' }}
+            >
+              {project.imageUrl ? (
+                <img
+                  src={project.imageUrl}
+                  alt={`${project.title} preview`}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="grid aspect-[16/8] place-items-center">
+                  <span className="font-display text-6xl text-white/10">{project.title}</span>
+                </div>
+              )}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
             </div>
 
-            <div className="mb-12">
-              <h2 className="text-sm font-semibold text-accent uppercase tracking-wider mb-4">
-                Tech Stack
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-4 py-2 bg-secondary/50 border border-border/50 rounded-lg text-foreground"
-                  >
-                    {tech}
-                  </span>
-                ))}
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="panel p-6 sm:p-8">
+                <h2 className="text-sm font-medium text-foreground">Problem</h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {project.problemStatement}
+                </p>
+              </div>
+
+              <div className="panel p-6 sm:p-8">
+                <h2 className="text-sm font-medium text-foreground">Architecture</h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {project.architecture}
+                </p>
               </div>
             </div>
 
-            <div className="glass-card p-8 mb-8">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-gold" />
-                Problem Statement
-              </h2>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                {project.problemStatement}
-              </p>
-            </div>
-
-            <div className="glass-card p-8 mb-8">
-              <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                Architecture Overview
-              </h2>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                {project.architecture}
-              </p>
-            </div>
-
-            <div className="glass-card p-8 mb-12">
-              <h2 className="text-lg font-semibold mb-6 flex items-center gap-2 text-foreground">
-                <span className="w-2 h-2 rounded-full bg-accent" />
-                Core Features
-              </h2>
-              <ul className="space-y-4">
+            <div className="panel mt-4 p-6 sm:p-8">
+              <h2 className="text-sm font-medium text-foreground">Core features</h2>
+              <ul className="mt-4 grid grid-cols-1 gap-3 pl-5 text-sm text-muted-foreground marker:text-primary sm:grid-cols-2 sm:text-base">
                 {project.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground text-base">{feature}</span>
+                  <li key={index} className="list-disc leading-relaxed">
+                    {feature}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {project.metrics && project.metrics.length > 0 && (
+              <div className="panel mt-4 p-6 sm:p-8">
+                <h2 className="text-sm font-medium text-foreground">Impact</h2>
+                <ul className="mt-4 space-y-2 pl-5 text-sm leading-relaxed text-muted-foreground marker:text-primary sm:text-base">
+                  {project.metrics.map((metric, index) => (
+                    <li key={index} className="list-disc">
+                      {metric}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               {project.githubUrl && (
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary"
-                  asChild
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
                 >
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                    <Github className="mr-2 h-5 w-5" />
-                    View on GitHub
-                  </a>
-                </Button>
+                  View on GitHub
+                </a>
               )}
               {project.liveUrl && (
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground glow-primary"
-                  asChild
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-lg border border-white/12 px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-white/25 sm:w-auto"
                 >
-                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-5 w-5" />
-                    View Live
-                  </a>
-                </Button>
+                  View live
+                </a>
               )}
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-border/50 bg-background/50"
-                asChild
+              <Link
+                to="/"
+                state={{ target: 'projects' }}
+                className="inline-flex w-full items-center justify-center rounded-lg border border-white/12 px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-white/25 sm:w-auto"
               >
-                <Link to="/#projects">
-                  <ExternalLink className="mr-2 h-5 w-5" />
-                  View All Projects
-                </Link>
-              </Button>
+                All projects
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
-      <footer className="border-t border-border/50 py-8">
-        <div className="section-container text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} AI Developer. Built with precision.</p>
+      <footer className="relative z-10 border-t border-white/10 py-8">
+        <div className="section-container text-center text-xs text-muted-foreground">
+          <p>© {new Date().getFullYear()} Manik Manavenddra · Manik0107</p>
         </div>
       </footer>
     </div>

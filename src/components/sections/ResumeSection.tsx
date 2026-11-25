@@ -1,56 +1,84 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
+import SectionHeading from '@/components/SectionHeading';
 
-gsap.registerPlugin(ScrollTrigger);
+const contactLinks = [
+  { label: 'Email', value: 'manikmanavenddra@gmail.com', href: 'mailto:manikmanavenddra@gmail.com' },
+  { label: 'GitHub', value: 'github.com/Manik0107', href: 'https://github.com/Manik0107' },
+  { label: 'LinkedIn', value: 'in/manik-manavenddra', href: 'https://www.linkedin.com/in/manik-manavenddra/' },
+  { label: 'Résumé', value: 'View PDF', href: '/resume' },
+];
 
 export default function ResumeSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const [copied, setCopied] = useState(false);
+  const email = 'manikmanavenddra@gmail.com';
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.resume-content', {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const resumePath = '/resume';
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${email}`;
+    }
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      id="resume"
-      className="py-20 relative"
-    >
+    <section id="contact" className="relative py-24 sm:py-32">
       <div className="section-container">
-        <div className="resume-content max-w-4xl mx-auto">
-          
+        <SectionHeading
+          title={
+            <>
+              Let&apos;s talk about the{' '}
+              <span className="font-display font-normal">system you need.</span>
+            </>
+          }
+          description="I'm open to AI engineering roles and selected consulting work. If you're building something serious, my inbox is open."
+        />
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { label: 'Years Experience', value: '2' },
-              { label: 'Projects Shipped', value: '5+' },
-              { label: 'AI Systems Built', value: '15+' },
-              { label: 'Languages', value: '6+' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-card p-4 text-center"
+        <div className="grid grid-cols-1 gap-12 border-t border-white/10 pt-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                onClick={copyEmail}
+                className="rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                <div className="text-2xl font-bold text-gradient-gold">{stat.value}</div>
-                <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
-              </div>
-            ))}
+                {copied ? 'Email copied' : 'Copy email address'}
+              </button>
+              <a
+                href={`mailto:${email}`}
+                className="rounded-lg border border-white/12 px-6 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+              >
+                Say hello
+              </a>
+            </div>
+
+            <p className="mt-8 font-mono text-xs leading-relaxed text-muted-foreground">
+              AI engineer · 5+ projects shipped · production-focused
+            </p>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="border-t border-white/10">
+              {contactLinks.map((link) => {
+                const external = link.href.startsWith('http');
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={external ? '_blank' : undefined}
+                    rel={external ? 'noopener noreferrer' : undefined}
+                    className="group flex items-baseline justify-between gap-4 border-b border-white/10 py-4 transition-colors hover:text-foreground"
+                  >
+                    <span className="text-sm text-muted-foreground">
+                      {link.label}
+                    </span>
+                    <span className="text-right text-sm text-foreground/80 transition-colors group-hover:text-primary">
+                      {link.value}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

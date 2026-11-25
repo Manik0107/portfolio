@@ -14,7 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        mono: ["JetBrains Mono", "Fira Code", "monospace"],
+        sans: ["Archivo", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Newsreader", "Georgia", "serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -103,6 +105,10 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -113,6 +119,8 @@ export default {
         float: "float 6s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         shimmer: "shimmer 2s linear infinite",
+        marquee: "marquee 38s linear infinite",
+        "marquee-reverse": "marquee 38s linear infinite reverse",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

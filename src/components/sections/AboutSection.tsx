@@ -1,180 +1,61 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const TypingEffect = ({ text, startTyping }: { text: string[]; startTyping: boolean }) => {
-  const [currentText, setCurrentText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [textIndex, setTextIndex] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-
-  useEffect(() => {
-    if (startTyping && !hasStarted) {
-      setHasStarted(true);
-      setCurrentText('');
-      setCurrentIndex(0);
-      setTextIndex(0);
-      setIsDeleting(false);
-    }
-  }, [startTyping]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    const typeSpeed = isDeleting ? 50 : 100;
-    const pauseTime = 2000;
-
-    const type = () => {
-      const fullText = text[textIndex % text.length];
-
-      if (isDeleting) {
-        setCurrentText(fullText.substring(0, currentIndex - 1));
-        setCurrentIndex(prev => prev - 1);
-      } else {
-        setCurrentText(fullText.substring(0, currentIndex + 1));
-        setCurrentIndex(prev => prev + 1);
-      }
-
-      if (!isDeleting && currentIndex === fullText.length) {
-        setTimeout(() => setIsDeleting(true), pauseTime);
-      } else if (isDeleting && currentIndex === 0) {
-        setIsDeleting(false);
-        setTextIndex(prev => prev + 1);
-      }
-    };
-
-    const timer = setTimeout(type, typeSpeed);
-    return () => clearTimeout(timer);
-  }, [currentIndex, isDeleting, text, textIndex, hasStarted]);
-
-  return (
-    <span>
-      <span className="text-blue-300">{currentText}</span>
-      <span className="animate-pulse text-primary">|</span>
-    </span>
-  );
-};
+import SectionHeading from '@/components/SectionHeading';
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        onEnter: () => setIsInView(true),
-      });
-
-      gsap.from(contentRef.current, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          end: 'top 30%',
-          scrub: 1,
-        },
-        y: 60,
-        opacity: 0,
-      });
-
-      gsap.from('.highlight-card', {
-        scrollTrigger: {
-          trigger: '.highlights-grid',
-          start: 'top 80%',
-        },
-        y: 40,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out',
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="py-12 pb-4 relative"
-    >
+    <section id="about" className="relative py-24 sm:py-32">
       <div className="section-container">
-        <div ref={contentRef} className="flex flex-col lg:flex-row items-center gap-12 mb-16">
-          <motion.div
-            className="profile-picture flex-shrink-0"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <motion.div
-              className="w-56 h-72 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] rounded-2xl border-4 border-primary/30 bg-secondary/50 overflow-hidden group relative hover:border-primary/50 transition-all duration-300 shadow-2xl hover:shadow-primary/20"
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              whileHover={{
-                scale: 1.03,
-                rotateY: 2,
-              }}
-            >
-              <img src="/Manik.jpeg" alt="Manik - AI Developer" className="w-full h-full object-cover object-center" />
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+        <SectionHeading
+          title={
+            <>
+              From prototype to{' '}
+              <span className="font-display font-normal">production.</span>
+            </>
+          }
+        />
 
-              <motion.div
-                className="absolute inset-0 rounded-2xl"
-                animate={{
-                  boxShadow: [
-                    '0 0 20px rgba(59, 130, 246, 0.3)',
-                    '0 0 40px rgba(45, 212, 191, 0.3)',
-                    '0 0 20px rgba(59, 130, 246, 0.3)',
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-            </motion.div>
-          </motion.div>
-
-          <div className="text-center lg:text-left flex-1">
-            <div className="mb-6">
-              <h2 className="text-2xl md:text-4xl font-bold font-mono text-center">
-                <span className="sr-only">
-                  Hi, I'm Manik Manavenddra M — AI Engineer. Building production ready AI systems.
-                </span>
-                <TypingEffect
-                  startTyping={isInView}
-                  text={[
-                    "Hi, I'm Manik Manavenddra M",
-                    "AI Engineer",
-                    "Building Production Ready AI Systems"
-                  ]}
-                />
-              </h2>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <div className="space-y-6 text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              <p>
+                I&apos;m an AI engineer focused on the distance between a working
+                prototype and a dependable product. My work spans multi-agent
+                architectures, retrieval pipelines, fine-tuned models and the
+                deployment work that makes them usable.
+              </p>
+              <p>
+                I work across generative and agentic AI, retrieval-augmented
+                generation, custom LLMs and vision-language applications, with the
+                MLOps needed to keep them observable and reliable.
+              </p>
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed text-justify">
-              I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent
-              solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps,
-              Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
-            </p>
-            <p className="text-lg font-semibold leading-relaxed mt-6 text-center">
-              <span className="text-gradient-gold">Ultimately, I'm just a builder who loves making complex tech feel simple for the end user.</span>
-            </p>
+
+            <blockquote className="mt-8 border-l-2 border-primary pl-5 text-lg font-medium leading-relaxed text-foreground">
+              The measure of the work is simple: does it make someone&apos;s job
+              easier, and does it keep working when it matters?
+            </blockquote>
+
+            <div className="mt-8">
+              <h3 className="text-sm font-medium text-foreground">Focus areas</h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Generative AI, agentic systems, retrieval-augmented generation,
+                MLOps, multimodal models and model optimization.
+              </p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <figure className="mx-auto max-w-sm">
+              <div className="overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src="/Manik.jpeg"
+                  alt="Manik Manavenddra, AI Engineer"
+                  className="aspect-[4/5] w-full object-cover object-center"
+                />
+              </div>
+              <figcaption className="mt-3 text-sm text-muted-foreground">
+                Manik Manavenddra · India
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>

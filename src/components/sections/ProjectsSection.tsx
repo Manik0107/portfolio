@@ -1,38 +1,51 @@
-import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
-import ProjectWheel from '@/components/ProjectWheel';
+import { projects } from '@/data/projects';
+import SectionHeading from '@/components/SectionHeading';
+import ProjectCard from '@/components/ProjectCard';
 
 interface ProjectsSectionProps {
   initialProject?: string;
 }
 
 export default function ProjectsSection({ initialProject }: ProjectsSectionProps) {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const featured =
+    projects.find((p) => p.slug === 'agentic-market-intelligence') ?? projects[0];
+  const rest = projects.filter((p) => p.id !== featured.id);
 
   return (
-    <section
-      ref={ref}
-      id="projects"
-      className="py-20 relative overflow-x-hidden min-h-screen flex flex-col justify-center"
-    >
-      <div className="section-container relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-24"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="text-gradient-primary">Projects</span>
-          </h2>
-        </motion.div>
+    <section id="projects" className="relative py-24 sm:py-32">
+      <div className="section-container">
+        <SectionHeading
+          title={
+            <>
+              Systems I&apos;ve <span className="font-display font-normal">built.</span>
+            </>
+          }
+          description="Selected projects across market intelligence, developer tooling, knowledge management and applied LLM systems."
+        />
 
-        <div className="w-full">
-          <ProjectWheel initialProject={initialProject} />
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <ProjectCard
+            project={featured}
+            featured
+            highlight={initialProject === featured.slug}
+          />
+          {rest.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              highlight={initialProject === project.slug}
+            />
+          ))}
         </div>
+
+        <a
+          href="https://github.com/Manik0107"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-8 block text-center text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+        >
+          More on GitHub
+        </a>
       </div>
     </section>
   );
