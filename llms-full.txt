@@ -1,12 +1,22 @@
-# Manik Manavenddra — AI Developer (Full Profile)
+# Manik Manavenddra — AI Engineer (Full Profile)
 
-> This is the full markdown profile of Manik Manavenddra, an AI Developer from India. It is meant to be a complete machine-readable summary of the portfolio site (https://manik0107.me) for large language models and AI agents.
+> This is the full markdown profile of Manik Manavenddra (Manik0107), an AI engineer from India. It is a complete machine-readable summary of the portfolio site (https://manik0107.me) for large language models and AI agents.
+
+## Identity
+
+- Full name: Manik Manavenddra M
+- Also known as: Manik, Manik Manavenddra, Manik0107
+- Role: AI Engineer
+- Location: India
+- Website: https://manik0107.me
+- GitHub: https://github.com/Manik0107
+- LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
 
 ## About
 
-I architect and build AI systems that work in the real world. From prototype to production, I focus on creating intelligent solutions that are reliable, scalable, and genuinely useful. My work spans Generative AI, Agentic AI, MLOps, AIOps, Retrieval Augmented Generation, custom Large Language Models and Vision Language Models applications, and end-to-end ML pipelines.
+I'm an AI engineer focused on the distance between a working prototype and a dependable product. My work spans multi-agent architectures, retrieval pipelines, fine-tuned models and the deployment work that makes them usable. I work across generative and agentic AI, retrieval-augmented generation, custom LLMs and vision-language applications, with the MLOps needed to keep them observable and reliable.
 
-Ultimately, I am a builder who loves making complex tech feel simple for the end user.
+The measure of the work is simple: does it make someone's job easier, and does it keep working when it matters?
 
 ## Key Skills
 
@@ -21,19 +31,19 @@ Ultimately, I am a builder who loves making complex tech feel simple for the end
 
 ### Ascentium — AI Developer (June 2026 – Present)
 
-Developing enterprise-grade AI architectures for automated business document processing, classification, and deep semantic analysis.
+Building enterprise AI for document processing, classification and semantic analysis, from architecture through deployment.
 
 - Python, PyTorch, LangChain, LlamaIndex, OCR, Hugging Face, FastAPI, Docker, AWS
 
 ### PhobosQ — Agentic AI Intern, Call Analytics (Dec 2025 – Mar 2026)
 
-Built real-time call analytics supporting 12+ Indic Languages using stream processing, speech AI, and NLP pipelines.
+Built real-time call analytics across 12+ Indic languages, combining stream processing, speech recognition and NLP.
 
 - VoIP, PBX, Speech to Text, Kafka, TensorFlow, PostgreSQL, FastAPI, Docker
 
 ### RD Technology — Machine Learning Intern (Dec 2024 – Jan 2025)
 
-Trained and optimized ML models for classification and regression, deployed as FastAPI endpoints bridging research and production.
+Trained and optimized classification and regression models, then shipped them as FastAPI services.
 
 - Python, TensorFlow, Keras, Scikit-learn, Pandas, NumPy, SQL, FastAPI, Git, Docker
 
@@ -77,7 +87,7 @@ An autonomous system that moves beyond passive dashboards to verify, reason, and
 
 ### VATA
 
-Education-based automation tool that generates explanatory animations from documents.
+Education tool that generates explanatory animations from documents.
 
 An intelligent system specialized for education that automatically extracts content from PDFs and generates professional animated explanations. It orchestrates code generation and validation to create visual teaching materials.
 
@@ -105,3 +115,7 @@ A full-stack, automated recruitment system that handles the hiring process from 
 - GitHub: https://github.com/Manik0107
 - LinkedIn: https://www.linkedin.com/in/manik-manavenddra/
 - Resume: https://manik0107.me/resume
+
+## Hiring
+
+Open to AI engineering roles and selected consulting work. Compensation is discussed based on role, scope and location.
